@@ -15,6 +15,6 @@ Check deze en andere inspirerende posts op [instagram.com/nktegelwippen](https:/
 
 Daar zeg ik natuurlijk geen nee tegen. Dus kwam Eigen Huis & Tuin: Lekker Leven langs bij mijn tuinhuisje. En niet alleen de wormenbak kwam aan bod. Ook de opgekweekte bloemen, mijn mooie tuinhek, de kweekkas en de DIY-Rietveld-tuinset. Verder mocht ik kletsen over hoe ik denk over tuinieren en hoe ik kijk naar alles wat groeit en bloeit. Het was een gezellige ochtend.
 
-![alt text](/blog-tegelwippen-image.jpg "NK Tegelwippen")
+<!-- ![alt text](/assets/blog/blog-tegelwippen-image.jpg "NK Tegelwippen") -->
 
 [nk-tegelwippen.nl](https:/nk-tegelwippen.nl "nk-tegelwippen.nl")
