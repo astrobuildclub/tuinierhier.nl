@@ -2,6 +2,18 @@
 import { NAME, NAME_REAL } from "../../consts";
 import Tag from "../common/Tag.astro";
 import HeroAnimation from "../animations/HeroAnimation.astro";
+
+// Achtergrondvideo. Specs en Handbrake-instellingen: README → "Hero-video".
+// Lichtste bron eerst; de browser pakt de eerste die hij kan afspelen.
+// Komt er een staande mobiele versie, voeg dan bovenaan bronnen toe met
+// media="(max-width: 767px) and (orientation: portrait)".
+const video = {
+  poster: "/assets/bloemenhommel-poster.jpg",
+  sources: [
+    { src: "/assets/bloemenhommel-transcode.webm", type: "video/webm" },
+    { src: "/assets/bloemenhommel-transcode.mp4", type: "video/mp4" },
+  ] as { src: string; type: string; media?: string }[],
+};
 ---
 
 <header
@@ -38,22 +50,84 @@ import HeroAnimation from "../animations/HeroAnimation.astro";
       </ul>
     </div>
   </div>
+  <!-- Decoratief: geen autoplay-attribuut, het script start de video alleen zonder prefers-reduced-motion. -->
   <video
-    class="absolute h-full w-full object-cover"
+    class="absolute inset-0 h-full w-full object-cover"
     id="hero-video"
-    autoplay="1"
-    loop="1"
-    style="background-image:url(./assets/bloemenhommel-poster.jpg)"
-    muted="1"
-    playsinline="1"
-    data-object-fit="cover"
-    width="100%"
-    poster="./assets/bloemenhommel-poster.jpg"
+    loop
+    muted
+    playsinline
     preload="metadata"
-    {...{ fetchpriority: "high" }}
-    ><source src="./assets/bloemenhommel-transcode.mp4" /><source
-      src="./assets/bloemenhommel-transcode.webm"
-    /></video
+    poster={video.poster}
+    aria-hidden="true"
   >
+    {video.sources.map(({ src, type, media }) => <source {src} {type} {media} />)}
+  </video>
+  <button
+    type="button"
+    class="hero-video-toggle absolute right-(--space-s) bottom-(--space-s) z-30 grid size-11 place-items-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+    data-video-toggle
+    aria-label="Speel achtergrondvideo af"
+    hidden
+  >
+    <svg class="icon-pause" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1" fill="currentColor"/><rect x="9.5" y="2" width="3.5" height="12" rx="1" fill="currentColor"/></svg>
+    <svg class="icon-play" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 4 2.5Z" fill="currentColor"/></svg>
+  </button>
 </header>
+
+<script>
+  // Afspelen, pauzeren en de knop (WCAG 2.2.2: bewegende content moet je kunnen stoppen).
+  // - prefers-reduced-motion: niet starten, poster blijft staan; de knop laat je hem toch afspelen.
+  // - Uit beeld: pauzeren (scheelt CPU/batterij); terug in beeld: verder, tenzij iemand zelf pauzeerde.
+  const video = document.getElementById("hero-video") as HTMLVideoElement | null;
+  const toggle = document.querySelector<HTMLButtonElement>("[data-video-toggle]");
+
+  if (video && toggle) {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let userPaused = reducedMotion;
+    let inView = true;
+
+    const render = () => {
+      const playing = !video.paused;
+      toggle.dataset.playing = String(playing);
+      toggle.setAttribute("aria-label", playing ? "Pauzeer achtergrondvideo" : "Speel achtergrondvideo af");
+    };
+    const play = () => video.play().catch(() => {}).finally(render);
+
+    toggle.hidden = false;
+    toggle.addEventListener("click", () => {
+      userPaused = !video.paused;
+      if (userPaused) video.pause();
+      else play();
+      render();
+    });
+    video.addEventListener("play", render);
+    video.addEventListener("pause", render);
+
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      if (!inView) video.pause();
+      else if (!userPaused) play();
+    }).observe(video);
+
+    // Chrome stelt afspelen in een achtergrondtab uit: start zodra de tab zichtbaar wordt.
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible" && inView && !userPaused && video.paused) play();
+    });
+
+    if (!userPaused) play();
+    render();
+  }
+</script>
+
+<style>
+  .hero-video-toggle .icon-play,
+  .hero-video-toggle[data-playing="true"] .icon-pause {
+    display: block;
+  }
+  .hero-video-toggle .icon-pause,
+  .hero-video-toggle[data-playing="true"] .icon-play {
+    display: none;
+  }
+</style>
 <HeroAnimation />
