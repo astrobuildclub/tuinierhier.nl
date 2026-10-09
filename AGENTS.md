@@ -27,6 +27,7 @@ Lees eerst `README.md` voor context en `CHANGELOG.md` voor recente wijzigingen.
 
 ## Projectspecifiek
 - Nieuwsberichten staan als Markdown in `src/content/nieuws/`; de bestandsnaam is de slug (`/nieuws/<slug>`, gelijk aan de oude Webflow-URL's, niet wijzigen in verband met SEO). Afbeeldingen in `src/assets/blog/`, relatief verwijzen (`../../assets/blog/…`) zodat Astro ze optimaliseert. Een wijziging daar start wel een Netlify-build (zie `ignore` in `netlify.toml`).
+- Markdown-tekst in een component: zet typografie op de wrapper en geef `[&_p]:m-0 [&_p]:leading-[inherit]` mee. `_reset.scss` zet `line-height: 1` op `p`, dus anders erft de alinea de regelafstand niet.
 - Vaste teksten staan in `src/content/teksten/*.md` en links in `src/content/links.json` (zie README → "Teksten bewerken"). Geen tekst hardcoded in componenten zetten.
 - Lenis meet de paginahoogte via een ResizeObserver op `body` (`smoothScroll.ts`); voeg je dynamisch content toe, roep dan `refreshScrollLength()` aan.
 - Hero-video: specs en Handbrake-instellingen in de README; bronnen in `Hero.astro` (`video.sources`).

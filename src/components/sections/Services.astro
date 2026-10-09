@@ -20,7 +20,7 @@ const diensten = await getDiensten();
         <div class="flex flex-col gap-(--space-3xs)">
           <h3 class="font-heading text-(length:--step-3) tracking-normal">{dienst.titel}</h3>
           <p class="text-(length:--step--1) font-semibold leading-normal">{dienst.intro}</p>
-          <div class="text-(length:--step--2) leading-[150%] mt-(--space-3xs) [&_p]:m-0 [&_p+p]:mt-(--space-3xs)">
+          <div class="text-(length:--step--2) leading-[150%] mt-(--space-3xs) [&_p]:m-0 [&_p]:leading-[inherit] [&_p+p]:mt-(--space-3xs)">
             <dienst.Content />
           </div>
         </div>
