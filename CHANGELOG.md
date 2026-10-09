@@ -9,6 +9,10 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 
 ## [Unreleased]
 
+### Beveiliging
+- `npm audit fix` en patch-/minor-updates: van 39 naar 13 meldingen (critical 2 → 1, high 28 → 6). Astro 5.15 → 5.18, GSAP 3.15, Lenis 1.3.26, Sass, PostCSS en overige integraties.
+- Overgebleven meldingen raken bezoekers niet: ze zitten in build-tooling (Tailwind 3-keten, `sharp`, esbuild-devserver) of in Astro-features die we niet gebruiken (`define:vars`, server islands). Ze zijn pas op te lossen met majors (Astro 7, Tailwind 4): aparte PR's.
+
 ### Toegevoegd
 - `public/llms.txt` (met de hand, geen CMS) en een `<link rel="alternate">` ernaar in de head.
 - `apple-touch-icon` (`/assets/webclip.png`).
