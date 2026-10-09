@@ -16,8 +16,8 @@
 
 ## Stack
 
-- Astro 5 · Node 22 (`.nvmrc`) · static (`output: 'static'`)
-- Styling: SCSS met Utopia (fluid type/space) en Tailwind 3 · Fonts: Manrope (Google Fonts), Typekit, Atkinson (lokaal)
+- Astro 7 · Node 22 (`.nvmrc`) · static (`output: 'static'`)
+- Styling: SCSS met Utopia (fluid type/space) en Tailwind 4 (`src/styles/tailwind.css`) · Fonts: Manrope (Google Fonts), Typekit, Atkinson (lokaal)
 - Animatie: GSAP (ScrollTrigger) en Lenis (smooth scroll), met `prefers-reduced-motion`
 - Consent: geen tracking · Hosting: Netlify
 

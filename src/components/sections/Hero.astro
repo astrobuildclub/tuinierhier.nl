@@ -14,12 +14,12 @@ import HeroAnimation from "../animations/HeroAnimation.astro";
       <!-- Mobile: Eefje Peddemors first, Desktop: Tuinierhier first -->
       <div class="flex flex-col md:block">
         <h1
-          class="font-heading-alt text-[length:var(--step-2)] text-white order-1"
+          class="font-heading-alt text-(length:--step-2) text-white order-1"
         >
           {NAME_REAL}
         </h1>
         <h2
-          class="font-heading text-[length:var(--step-7)] md:text-[length:var(--step-8)] lg:text-[length:var(--step-10)] leading-none text-clr-yellow whitespace-nowrap order-2"
+          class="font-heading text-(length:--step-7) md:text-(length:--step-8) lg:text-(length:--step-10) leading-none text-clr-yellow whitespace-nowrap order-2"
           id="hero-title"
           data-animate-text
         >
@@ -27,7 +27,7 @@ import HeroAnimation from "../animations/HeroAnimation.astro";
         </h2>
       </div>
       <ul
-        class="flex flex-wrap gap-[var(--space-2xs)] items-center justify-center"
+        class="flex flex-wrap gap-(--space-2xs) items-center justify-center"
         data-animate-tags
       >
         <li data-tag><Tag variant="hero">Tuinfluencer</Tag></li>

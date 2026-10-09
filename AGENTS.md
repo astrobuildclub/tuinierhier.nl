@@ -5,7 +5,7 @@ Lees eerst `README.md` voor context en `CHANGELOG.md` voor recente wijzigingen.
 
 ## Project
 - Klant: Tuinier Hier · Bedrijf: All This · SLA: TODO
-- Stack: Astro 5, SCSS (Utopia) en Tailwind 3, GSAP en Lenis, Node 22 (zie `.nvmrc`, gelijk aan `NODE_VERSION` in `netlify.toml`)
+- Stack: Astro 7, SCSS (Utopia) en Tailwind 4, GSAP en Lenis, Node 22 (zie `.nvmrc`, gelijk aan `NODE_VERSION` in `netlify.toml`)
 - Statische site (`output: 'static'`), **geen CMS**: Sanity is bewust niet nodig. `~/Code/_standards/SANITY.md` geldt hier niet.
 
 ## Werkwijze
@@ -28,4 +28,6 @@ Lees eerst `README.md` voor context en `CHANGELOG.md` voor recente wijzigingen.
 ## Projectspecifiek
 - Blogposts staan als Markdown in `src/content/blog/`. Een wijziging daar start wel een Netlify-build (zie `ignore` in `netlify.toml`).
 - Nieuwe of gewijzigde blogpost: werk ook `public/llms.txt` bij (met de hand, er is geen CMS).
+- Tailwind 4 staat in `src/styles/tailwind.css` (`@theme`, geen `tailwind.config`). De SCSS-basis staat in `@layer base` (`global.scss`): CSS buiten een layer wint in v4 altijd van utilities. Positie via `translate-*`-klassen niet combineren met `style.transform` in JS; gebruik `style.rotate`/`scale` (zie `FooterAnimation.astro`).
+- `compressHTML: true` in `astro.config.mjs` laten staan: de Astro 7-default `'jsx'` plakt woorden tussen elementen aan elkaar.
 - Domein altijd **zonder `www`**: `site` in `astro.config.mjs` is `https://tuinierhier.nl`. In Netlify is `tuinierhier.nl` het primaire domein en stuurt `www` door. (Webflow doet nu nog andersom, tot de overstap.)

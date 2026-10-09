@@ -1,7 +1,10 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 const blog = defineCollection({
-  type: "content",
+  // Bestanden met `_` ervoor (bv. _third-post.md) zijn concepten en worden overgeslagen.
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/blog" }),
   // Type-check frontmatter using a schema
   schema: ({ image }) =>
     z.object({

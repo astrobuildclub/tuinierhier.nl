@@ -5,10 +5,10 @@ const today = new Date();
 ---
 
 <footer
-  class="footer-sidebar bg-white min-h-[50vh] lg:h-screen grid overflow-visible content-between lg:sticky top-0 self-start z-[60] p-[var(--space-m-xl)] pb-[var(--space-m-3xs)] lg:p-[var(--space-s)] lg:pb-[var(--space-m-3xs)] lg:order-1"
+  class="footer-sidebar bg-white min-h-[50vh] lg:h-screen grid overflow-visible content-between lg:sticky top-0 self-start z-60 p-(--space-m-xl) pb-(--space-m-3xs) lg:p-(--space-s) lg:pb-(--space-m-3xs) lg:order-1"
 >
   <p
-    class="text-[length:var(--step--1)] lg:text-[length:var(--step--2)] font-bold leading-tight [text-wrap:pretty] lg:leading-normal"
+    class="text-(length:--step--1) lg:text-(length:--step--2) font-bold leading-tight text-pretty lg:leading-normal"
   >
     Tuinierhier is Eefje Peddemors; tuinfluencer, plantlover, kweekbeest,
     tuintijger en gardenista sur plus. Maakt grijze ongezellige situaties groen
@@ -16,7 +16,7 @@ const today = new Date();
   </p>
 
   <div class="grid gap-2">
-    <ul class="grid text-[length:var(--step--2)] font-bold">
+    <ul class="grid text-(length:--step--2) font-bold">
       <li>
         <a href="https://instagram.com/tuinierhier" class="footer-link">
           instagram.com/tuinierhier
@@ -34,7 +34,7 @@ const today = new Date();
       </li>
     </ul>
     <div
-      class="flex justify-between items-center mt-[var(--space-xs)] text-[length:var(--step--2)] lg:text-[10px] font-bold text-gray-500 lg:gap-1"
+      class="flex justify-between items-center mt-(--space-xs) text-(length:--step--2) lg:text-[10px] font-bold text-gray-500 lg:gap-1"
     >
       <div>&copy; {today.getFullYear()} {NAME}</div>
       <div class="flex justify-end items-center gap-1">
@@ -49,7 +49,7 @@ const today = new Date();
     </div>
   </div>
   <div
-    class="bloem absolute top-0 left-1/2 w-12 -translate-x-1/2 -translate-y-1/2 lg:top-1/2 lg:left-auto lg:right-0 lg:w-16 lg:translate-x-1/2 lg:-translate-y-1/2 lg:z-[999]"
+    class="bloem absolute top-0 left-1/2 w-12 -translate-x-1/2 -translate-y-1/2 lg:top-1/2 lg:left-auto lg:right-0 lg:w-16 lg:translate-x-1/2 lg:-translate-y-1/2 lg:z-999"
   >
     <img
       src="/assets/tuinierhier-bloem.svg"
