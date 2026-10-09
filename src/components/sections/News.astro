@@ -1,29 +1,35 @@
 ---
-import { getCollection } from "astro:content";
 import FormattedDate from "../common/FormattedDate.astro";
 import Card from "../common/Card.astro";
+import Button from "../common/Button.astro";
+import { getNieuws } from "../../lib/nieuws";
 
-const posts = (await getCollection("blog")).sort(
-  (a: any, b: any) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
-);
+// Eerst 3 berichten, daarna per 3 erbij via "Meer nieuws".
+// Zonder JS staan alle berichten er gewoon; het script verbergt de rest pas.
+const PAGE_SIZE = 3;
+const posts = await getNieuws();
 ---
 
 <section
-  class="bg-clr-yellow z-40 text-black relative grid content-center p-(--space-m-xl)"
+  class="bg-clr-yellow z-40 text-black relative grid content-center gap-(--space-m) p-(--space-m-xl)"
   id="news"
+  aria-label="Nieuws"
+  data-page-size={PAGE_SIZE}
 >
   <div
     class="grid auto-rows-min gap-(--space-s-m) items-start justify-items-start md:grid-cols-2 lg:grid-cols-3"
+    id="news-list"
   >
     {
       posts.map((post, index) => (
         <Card
-          href={`/blog/${post.id}/`}
+          href={`/nieuws/${post.id}`}
           imageSrc={post.data.heroImage.src}
           imageAlt={post.data.heroImage.alt}
           title={post.data.title}
           description={post.data.description}
           data-animate-card
+          data-news-item
           data-card-index={index}
         >
           <FormattedDate slot="meta" date={post.data.pubDate} />
@@ -31,52 +37,68 @@ const posts = (await getCollection("blog")).sort(
       ))
     }
   </div>
+  {
+    posts.length > PAGE_SIZE && (
+      <div class="flex flex-wrap items-center gap-(--space-s)">
+        <Button variant="outline" data-news-more aria-controls="news-list" hidden>
+          Meer nieuws
+        </Button>
+        <a href="/nieuws" class="font-bold text-(length:--step--1) underline">
+          Alle nieuws
+        </a>
+      </div>
+    )
+  }
 </section>
 
 <script>
-  import { createStaggerAnimation } from '../../utils/animations';
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-  // Register ScrollTrigger
   gsap.registerPlugin(ScrollTrigger);
 
-  // Check for reduced motion preference
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const section = document.getElementById("news");
+  const items = [...document.querySelectorAll<HTMLElement>("[data-news-item]")];
+  const more = document.querySelector<HTMLButtonElement>("[data-news-more]");
+  const pageSize = Number(section?.dataset.pageSize ?? 3);
 
+  // "Meer nieuws": verberg alles na de eerste pagina en toon per klik de volgende 3.
+  // Focus gaat naar de link van het eerste nieuwe bericht, zodat toetsenbord- en
+  // schermlezergebruikers op de goede plek verder lezen.
+  let shown = Math.min(pageSize, items.length);
+  items.slice(shown).forEach((item) => (item.hidden = true));
+
+  if (more && items.length > shown) {
+    more.hidden = false;
+    more.addEventListener("click", () => {
+      const next = items.slice(shown, shown + pageSize);
+      next.forEach((item) => (item.hidden = false));
+      shown += next.length;
+
+      if (!prefersReducedMotion) {
+        // Zelfde binnenkomst als de eerste kaarten: kort omhoog en infaden.
+        gsap.fromTo(next, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power2.out" });
+      }
+      next[0]?.querySelector<HTMLAnchorElement>("a")?.focus({ preventScroll: false });
+
+      if (shown >= items.length) more.hidden = true;
+      // Sectiehoogte veranderd: triggers (sticky, animaties) opnieuw meten.
+      ScrollTrigger.refresh();
+    });
+  }
+
+  // Binnenkomst van de eerste kaarten zodra de sectie in beeld komt.
   if (!prefersReducedMotion) {
-    // Stagger animation for news cards
-    const newsCards = document.querySelectorAll('[data-animate-card]');
-    
-    if (newsCards.length > 0) {
-      // Set initial state
-      gsap.set(newsCards, {
-        opacity: 0,
-        y: 20,
-      });
-
-      // Create stagger animation
-      createStaggerAnimation(newsCards, {
-        animation: 'slideUp',
-        stagger: 0.1,
-        duration: 0.6,
-        delay: 0.2,
-      });
-
-      // Trigger animation when section comes into view
-      ScrollTrigger.create({
-        trigger: '#news',
-        start: 'top 80%',
-        onEnter: () => {
-          gsap.to(newsCards, {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: 'power2.out',
-          });
-        },
-      });
-    }
+    const visible = items.slice(0, shown);
+    gsap.set(visible, { opacity: 0, y: 20 });
+    ScrollTrigger.create({
+      trigger: "#news",
+      start: "top 80%",
+      once: true,
+      onEnter: () => {
+        gsap.to(visible, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power2.out" });
+      },
+    });
   }
 </script>

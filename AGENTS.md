@@ -26,8 +26,8 @@ Lees eerst `README.md` voor context en `CHANGELOG.md` voor recente wijzigingen.
 - SEO en AI readiness (meta, JSON-LD, sitemap, robots, `llms.txt`) volgens `~/Code/_standards/SEO.md`.
 
 ## Projectspecifiek
-- Blogposts staan als Markdown in `src/content/blog/`. Een wijziging daar start wel een Netlify-build (zie `ignore` in `netlify.toml`).
-- Nieuwe of gewijzigde blogpost: werk ook `public/llms.txt` bij (met de hand, er is geen CMS).
+- Nieuwsberichten staan als Markdown in `src/content/nieuws/`; de bestandsnaam is de slug (`/nieuws/<slug>`, gelijk aan de oude Webflow-URL's, niet wijzigen in verband met SEO). Afbeeldingen in `src/assets/blog/`, relatief verwijzen (`../../assets/blog/…`) zodat Astro ze optimaliseert. Een wijziging daar start wel een Netlify-build (zie `ignore` in `netlify.toml`).
+- Nieuw of gewijzigd bericht: werk ook `public/llms.txt` bij (met de hand, er is geen CMS).
 - Tailwind 4 staat in `src/styles/tailwind.css` (`@theme`, geen `tailwind.config`). De SCSS-basis staat in `@layer base` (`global.scss`): CSS buiten een layer wint in v4 altijd van utilities. Positie via `translate-*`-klassen niet combineren met `style.transform` in JS; gebruik `style.rotate`/`scale` (zie `FooterAnimation.astro`).
 - Gestapelde sticky secties: gebruik `data-sticky-fit` + `lg:sticky lg:top-[var(--sticky-top,0px)]` (zie `src/utils/stickyFit.ts`), niet `top-0`, zodat hoge secties eerst helemaal in beeld komen.
 - `compressHTML: true` in `astro.config.mjs` laten staan: de Astro 7-default `'jsx'` plakt woorden tussen elementen aan elkaar.

@@ -2,33 +2,25 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
-const blog = defineCollection({
-  // Bestanden met `_` ervoor (bv. _third-post.md) zijn concepten en worden overgeslagen.
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/blog" }),
-  // Type-check frontmatter using a schema
+// Nieuwsberichten: één Markdown-bestand per bericht in src/content/nieuws/.
+// De bestandsnaam is de slug (/nieuws/<slug>/), gelijk aan de oude Webflow-URL's.
+// Bestanden met `_` ervoor zijn concepten en worden overgeslagen.
+const nieuws = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/nieuws" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
       description: z.string(),
-      // Transform string to Date object
+      // Volgorde: nieuwste eerst. Berichten op dezelfde dag sorteer je met de tijd.
       pubDate: z.coerce.date(),
-      // You can also transform a date string (e.g. "2022-07-08") to a Date object
-      // publishDate: z.string().transform((str) => new Date(str)),
-      // Advanced: Validate that the string is also an email
       updatedDate: z.coerce.date().optional(),
-      // heroImage: z.string().optional(),
-
       heroImage: z.object({
         src: image(),
         alt: z.string(),
       }),
-      // author: z.string().default("Eefje").optional(),
-      // authorContact: z.string().email().optional(),
-      // tags: z.array(z.string()).optional(),
-      // An optional frontmatter property. Very common!
-      footnote: z.string().optional(),
-      // In frontmatter, dates written without quotes around them are interpreted as Date objects
+      // Externe links onder het bericht (bv. de aflevering of het interview).
+      links: z.array(z.object({ label: z.string(), url: z.url() })).default([]),
     }),
 });
 
-export const collections = { blog };
+export const collections = { nieuws };

@@ -1,6 +1,6 @@
 # tuinierhier.nl
 
-> Nieuwe website voor Tuinierhier (Eefje Peddemors), tuinfluencer: over Eefje, diensten, blog en contact. Vervangt de huidige Webflow-site.
+> Nieuwe website voor Tuinierhier (Eefje Peddemors), tuinfluencer: over Eefje, diensten, nieuws en contact. Vervangt de huidige Webflow-site.
 
 | | |
 |---|---|
@@ -10,7 +10,7 @@
 | **SLA** | Nee (later: Personal) |
 | **Live** | https://tuinierhier.nl (nog Webflow, die stuurt nu door naar `www`) |
 | **Netlify** | team All This, site `tuinierhier` |
-| **CMS** | geen: statische site, blog als Markdown in de repo |
+| **CMS** | geen: statische site, nieuws als Markdown in de repo |
 | **Repo** | [github.com/astrobuildclub/tuinierhier.nl](https://github.com/astrobuildclub/tuinierhier.nl) |
 | **Notion** | [Repo-inventaris → tuinierhier.nl](https://app.notion.com/p/3f3a14629244814993eae1ce2c957353) |
 
@@ -40,11 +40,11 @@ Geen.
 ```
 src/
   components/   animations/, common/, features/ (blog, seo), layout/, sections/
-  content/      blog/: blogposts in Markdown/MDX
+  content/      nieuws/: nieuwsberichten in Markdown
   data/         siteData.json (site-naam, OG-beeld), navData.js
   js/           jsonLD.js, nav.js, utils.js
-  layouts/      MainLayout, MainHead, BlogPost
-  pages/        index, blog/, rss.xml
+  layouts/      MainLayout, MainHead, NieuwsPost
+  pages/        index, nieuws/, rss.xml
   styles/       SCSS: reset, typography, utopia, variables
 public/         robots.txt, llms.txt, favicon, fonts, video en beelden
 ```
@@ -52,7 +52,22 @@ public/         robots.txt, llms.txt, favicon, fonts, video en beelden
 ## Content en CMS
 
 - Geen CMS. De homepage-teksten staan in de componenten in `src/components/sections/`.
-- Blogposts: een Markdown-bestand in `src/content/blog/` (frontmatter: `title`, `description`, `pubDate`, `heroImage`). Een wijziging daar start een Netlify-build.
+- Nieuws: een Markdown-bestand per bericht in `src/content/nieuws/`. De bestandsnaam is de URL (`/nieuws/<slug>`). Frontmatter:
+
+  ```yaml
+  title: "Titel (ook de <title> van de pagina)"
+  description: "Intro onder de titel en meta-description"
+  pubDate: 2023-10-07T12:00:00Z   # nieuwste eerst; zelfde dag → sorteer met de tijd
+  heroImage:
+    src: "../../assets/blog/foto.jpg"
+    alt: "Beschrijf wat er op de foto te zien is"
+  links:                          # optioneel, onder het bericht
+    - label: "grijsgroen.org"
+      url: "https://grijsgroen.org/aflevering-6/"
+  ```
+
+  Afbeeldingen in de tekst: `![alt](../../assets/blog/foto.jpg)`, dan maakt Astro er WebP in de juiste maten van. Een wijziging start een Netlify-build; werk ook `public/llms.txt` bij.
+- Home toont de nieuwste 3 berichten met "Meer nieuws" (per 3); `/nieuws` toont alles.
 - Sanity is niet nodig (zie Notion). `~/Code/_standards/SANITY.md` geldt hier niet.
 
 ## Privacy, toegankelijkheid en SEO
@@ -78,7 +93,7 @@ Netlify: team All This, site [`tuinierhier`](https://app.netlify.com/projects/tu
 ## Bekende issues en afspraken
 
 - Overstap van Webflow naar Netlify staat nog open. Domein altijd zonder `www`: in Netlify `tuinierhier.nl` als primair domein, `www` stuurt door.
-- In `src/content/blog/` staan nog voorbeeldposts van de Astro-starter (`markdown-style-guide.md`, `second-post.md`, `using-mdx.mdx`, `_third-post.md`) en meerdere posts met de placeholder-description "Een stadstuin met potentie.".
+- In `src/content/nieuws/` staan nog voorbeeldposts van de Astro-starter (`markdown-style-guide.md`, `second-post.md`, `using-mdx.mdx`, `_third-post.md`) en meerdere posts met de placeholder-description "Een stadstuin met potentie.".
 - Webshop later als maatwerk.
 
 ---

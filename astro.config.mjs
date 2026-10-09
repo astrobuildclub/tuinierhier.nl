@@ -7,9 +7,12 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: 'https://tuinierhier.nl',
   output: 'static',
+  // URL's zonder slash aan het eind, gelijk aan de oude Webflow-site (/nieuws/<slug>), in verband met SEO.
+  trailingSlash: 'never',
   // Astro 7 gebruikt standaard 'jsx': witruimte tussen elementen verdwijnt ("Home Blog" → "HomeBlog").
   compressHTML: true,
   build: {
+    format: 'file',
     inlineStylesheets: 'auto',
     assets: '_astro',
   },

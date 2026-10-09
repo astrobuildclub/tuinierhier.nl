@@ -18,7 +18,9 @@ const jsonLD = jsonLDGenerator({
   url,
 });
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// build.format 'file' geeft paden als /nieuws/x.html; de echte URL is /nieuws/x (trailingSlash: 'never').
+const cleanPath = Astro.url.pathname.replace(/(\/index)?\.html$/, "") || "/";
+const canonicalURL = new URL(cleanPath, Astro.site);
 ---
 
 <!-- SEO -->
@@ -27,7 +29,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <!-- Open Graph -->
 <meta property="og:site_name" content="Tuinierhier" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content={url} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={image?.src || siteData.image.src} />
@@ -43,7 +45,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content={url} />
+<meta name="twitter:url" content={canonicalURL} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={image?.src || siteData.image.src} />
