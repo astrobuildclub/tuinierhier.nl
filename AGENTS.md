@@ -5,7 +5,8 @@ Lees eerst `README.md` voor context en `CHANGELOG.md` voor recente wijzigingen.
 
 ## Project
 - Klant: Tuinier Hier · Bedrijf: All This · SLA: TODO
-- Stack: Astro 5, Tailwind, geen CMS, statisch. Geen `.nvmrc`: de Node-versie staat in de Netlify-UI
+- Stack: Astro 5, SCSS (Utopia) en Tailwind 3, GSAP en Lenis, Node 22 (zie `.nvmrc`, gelijk aan `NODE_VERSION` in `netlify.toml`)
+- Statische site (`output: 'static'`), **geen CMS**: Sanity is bewust niet nodig. `~/Code/_standards/SANITY.md` geldt hier niet.
 
 ## Werkwijze
 - Werk nooit direct op `main`. Branch vanaf `staging` → PR naar `staging` → deploy preview → merge. Naar `main` alleen gebundelde releases en hotfixes, volgens `~/Code/_standards/DEPLOY.md` (elke productiedeploy kost Netlify-credits).
@@ -26,4 +27,5 @@ Lees eerst `README.md` voor context en `CHANGELOG.md` voor recente wijzigingen.
 
 ## Projectspecifiek
 - Blogposts staan als Markdown in `src/content/blog/`. Een wijziging daar start wel een Netlify-build (zie `ignore` in `netlify.toml`).
-- `README.md` is grotendeels nog de Astro-starter: bij de volgende wijziging vervangen door `~/Code/_standards/README.template.md`.
+- Nieuwe of gewijzigde blogpost: werk ook `public/llms.txt` bij (met de hand, er is geen CMS).
+- Domein altijd **zonder `www`**: `site` in `astro.config.mjs` is `https://tuinierhier.nl`. In Netlify is `tuinierhier.nl` het primaire domein en stuurt `www` door. (Webflow doet nu nog andersom, tot de overstap.)

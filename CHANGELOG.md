@@ -9,7 +9,16 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 
 ## [Unreleased]
 
+### Toegevoegd
+- `public/llms.txt` (met de hand, geen CMS) en een `<link rel="alternate">` ernaar in de head.
+- `apple-touch-icon` (`/assets/webclip.png`).
+
+### Opgelost
+- `src/data/siteData.json` bevatte nog starterdata ("My Astro Blog"): naam, beschrijving en OG-alt nu Tuinierhier.
+
 ### Gewijzigd
+- `README.md` volgens `_standards/README.template.md`: statische site, geen CMS.
+- `AGENTS.md`: Node 22 via `.nvmrc`, statisch zonder CMS, `llms.txt` bijhouden bij nieuwe posts.
 - Deploy-workflow volgens `_standards/DEPLOY.md`: features via PR naar `staging` (branch deploy op `staging--tuinierhier.netlify.app`), gebundelde releases naar `main`. Branch protection op `staging`.
 - `netlify.toml` (nieuw, alleen de `ignore`-regel; buildinstellingen staan in de Netlify-UI): geen build bij commits met alleen documentatie (`*.md` in de root, `.github/`). Markdown-content in `src/content/` start wel een build.
 
