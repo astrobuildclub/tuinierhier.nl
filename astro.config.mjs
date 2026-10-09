@@ -5,7 +5,7 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.tuinierhier.nl',
+  site: 'https://tuinierhier.nl',
   output: 'static',
   build: {
     inlineStylesheets: 'auto',

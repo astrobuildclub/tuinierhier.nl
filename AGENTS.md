@@ -28,4 +28,4 @@ Lees eerst `README.md` voor context en `CHANGELOG.md` voor recente wijzigingen.
 ## Projectspecifiek
 - Blogposts staan als Markdown in `src/content/blog/`. Een wijziging daar start wel een Netlify-build (zie `ignore` in `netlify.toml`).
 - Nieuwe of gewijzigde blogpost: werk ook `public/llms.txt` bij (met de hand, er is geen CMS).
-- `site` in `astro.config.mjs` is het live-domein `https://www.tuinierhier.nl` (`tuinierhier.nl` stuurt door naar `www`).
+- Domein altijd **zonder `www`**: `site` in `astro.config.mjs` is `https://tuinierhier.nl`. In Netlify is `tuinierhier.nl` het primaire domein en stuurt `www` door. (Webflow doet nu nog andersom, tot de overstap.)

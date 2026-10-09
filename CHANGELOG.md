@@ -14,7 +14,6 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 - `apple-touch-icon` (`/assets/webclip.png`).
 
 ### Opgelost
-- `site` in `astro.config.mjs` en de sitemap-URL in `robots.txt` naar `https://www.tuinierhier.nl` (het live-domein; zonder `www` is een redirect). Canonical, sitemap en JSON-LD kloppen daarmee.
 - `src/data/siteData.json` bevatte nog starterdata ("My Astro Blog"): naam, beschrijving en OG-alt nu Tuinierhier.
 
 ### Gewijzigd

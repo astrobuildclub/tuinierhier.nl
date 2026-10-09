@@ -6,9 +6,9 @@
 |---|---|
 | **Klant** | Tuinierhier (Eefje Peddemors) |
 | **Bedrijf** | All This |
-| **Status** | WIP: Astro-versie staat op Netlify, www.tuinierhier.nl draait nog op Webflow |
+| **Status** | WIP: Astro-versie staat op Netlify, tuinierhier.nl draait nog op Webflow |
 | **SLA** | Nee (later: Personal) |
-| **Live** | https://www.tuinierhier.nl (nog Webflow) |
+| **Live** | https://tuinierhier.nl (nog Webflow, die stuurt nu door naar `www`) |
 | **Netlify** | team All This, site `tuinierhier` |
 | **CMS** | geen: statische site, blog als Markdown in de repo |
 | **Repo** | [github.com/astrobuildclub/tuinierhier.nl](https://github.com/astrobuildclub/tuinierhier.nl) |
@@ -77,7 +77,7 @@ Netlify: team All This, site [`tuinierhier`](https://app.netlify.com/projects/tu
 
 ## Bekende issues en afspraken
 
-- Overstap van Webflow naar Netlify (domein www.tuinierhier.nl) staat nog open.
+- Overstap van Webflow naar Netlify staat nog open. Domein altijd zonder `www`: in Netlify `tuinierhier.nl` als primair domein, `www` stuurt door.
 - In `src/content/blog/` staan nog voorbeeldposts van de Astro-starter (`markdown-style-guide.md`, `second-post.md`, `using-mdx.mdx`, `_third-post.md`) en meerdere posts met de placeholder-description "Een stadstuin met potentie.".
 - Webshop later als maatwerk.
 
