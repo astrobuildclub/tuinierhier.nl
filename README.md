@@ -17,7 +17,7 @@
 ## Stack
 
 - Astro 7 · Node 22 (`.nvmrc`) · static (`output: 'static'`)
-- Styling: SCSS met Utopia (fluid type/space) en Tailwind 4 (`src/styles/tailwind.css`) · Fonts: Manrope (Google Fonts), Typekit, Atkinson (lokaal)
+- Styling: SCSS met Utopia (fluid type/space) en Tailwind 4 (`src/styles/tailwind.css`) · Fonts: Manrope (zelf gehost), new-spirit en anchor-web (Typekit)
 - Animatie: GSAP (ScrollTrigger) en Lenis (smooth scroll), met `prefers-reduced-motion`
 - Consent: geen tracking · Hosting: Netlify
 
@@ -40,8 +40,9 @@ Geen.
 ```
 src/
   components/   animations/, common/, features/ (blog, seo), layout/, sections/
-  content/      nieuws/: nieuwsberichten in Markdown
-  data/         siteData.json (site-naam, OG-beeld), navData.js
+  content/      nieuws/ (berichten), teksten/ (vaste teksten), links.json
+  data/         siteData.json (site-naam, OG-beeld)
+  lib/          nieuws.ts, teksten.ts (ophalen en sorteren)
   js/           jsonLD.js, nav.js, utils.js
   layouts/      MainLayout, MainHead, NieuwsPost
   pages/        index, nieuws/, rss.xml
@@ -70,10 +71,51 @@ public/         robots.txt, llms.txt, favicon, fonts, video en beelden
 - Home toont de nieuwste 3 berichten met "Meer nieuws" (per 3); `/nieuws` toont alles.
 - Sanity is niet nodig (zie Notion). `~/Code/_standards/SANITY.md` geldt hier niet.
 
+### Teksten bewerken
+
+Alle vaste teksten staan als Markdown in `src/content/teksten/`. Gewoon de tekst aanpassen; lege regel = nieuwe alinea, `[tekst](url)` = link.
+
+| Bestand | Waar op de site |
+|---|---|
+| `sidebar.md` | Witte zijbalk, bovenaan (mobiel: footer) |
+| `intro-links.md` · `intro-rechts.md` | Blauwe intro, linker- en rechterkolom (laatste alinea rechts is iets minder vet) |
+| `diensten.md` | Kop "Diensten" (`titel`) |
+| `diensten/*.md` | Eén dienst per bestand: `titel`, `intro` (vet), tekst = body, `volgorde` |
+| `contact.md` | Groene sectie: `label` ("samenwerken?"), `titel`, tekst = body |
+| `../links.json` | Instagram, LinkedIn, e-mail: één lijst voor zijbalk én contact (`volgorde`) |
+
+Nieuwe dienst: kopieer een bestand in `diensten/` en pas `volgorde` aan.
+
+### Hero-video
+
+Achtergrond van de hero: gedimd, uitgezoomd bij scrollen, zonder geluid, in een lus. Hij hoeft dus niet scherp te zijn, wel licht. De huidige bestanden (1280×720, 6,9 s) zijn 3,5 MB (MP4) en 2,1 MB (WebM): veel te zwaar.
+
+| | Desktop (liggend) | Mobiel (staand, optioneel) | Poster |
+|---|---|---|---|
+| Bestand | `hero-1280.mp4` + `hero-1280.webm` | `hero-720x1280.mp4` + `.webm` | `hero-poster.jpg` |
+| Afmeting | 1280×720 (16:9) | 720×1280 (9:16), midden uitgesneden | 1280×720 |
+| Duur | 6–10 s, naadloze lus | idem | eerste frame |
+| Framerate | 25 fps, constant | 25 fps | |
+| Codec | MP4: H.264 High · WebM: VP9 | idem | JPG, kwaliteit ~75 |
+| Geluid | **geen audiospoor** | geen | |
+| Doel | MP4 ≤ 1,2 MB · WebM ≤ 0,9 MB | ≤ 0,8 MB | ≤ 120 kB |
+
+**Handbrake** (vanaf het origineel, niet vanaf de huidige transcode):
+
+1. Preset *General → Fast 720p30* als basis.
+2. **Summary:** Format MP4, ✓ *Web Optimized* (moov-atom vooraan: start sneller), ✓ *Align A/V Start*.
+3. **Dimensions:** 1280×720 (mobiel: *Cropping* custom naar 9:16, dan 720×1280).
+4. **Video:** Encoder *H.264 (x264)*, Framerate *25*, *Constant Framerate*, Quality *RF 28* (te blokkerig? 26), Encoder Preset *Slow*, Profile *High*, Level *4.0*.
+5. **Audio:** alle sporen verwijderen.
+6. WebM: zelfde instellingen, Format *WebM*, Encoder *VP9*, Quality *CQ 34*.
+7. Poster: in QuickTime het eerste frame exporteren, of `ffmpeg -i hero-1280.mp4 -frames:v 1 -q:v 4 hero-poster.jpg`.
+
+Bestanden in `public/assets/`, en in `src/components/sections/Hero.astro` de lijst `video.sources` en `video.poster` aanpassen. Lichtste bron eerst (WebM). Mobiele versie bovenaan met `media: "(max-width: 767px) and (orientation: portrait)"`.
+
 ## Privacy, toegankelijkheid en SEO
 
-- Consent: geen statistiek of embeds. Let op: Google Fonts en Typekit worden extern geladen (IP-adres naar Google/Adobe). TODO: zelf hosten of bewust accepteren.
-- WCAG 2.2 AA: animaties respecteren `prefers-reduced-motion`.
+- Consent: geen statistiek of embeds. Manrope is zelf gehost (`@fontsource/manrope`). Typekit (new-spirit, anchor-web) blijft extern: Adobe Fonts mag je niet zelf hosten. Dat stuurt het IP-adres van bezoekers naar Adobe; vermelden in de privacyverklaring.
+- WCAG 2.2 AA: animaties respecteren `prefers-reduced-motion` (de hero-video start dan niet); hero-video heeft een pauzeknop; skip-link naar `#inhoud`.
 - SEO en AI readiness volgens `~/Code/_standards/SEO.md`: meta en Open Graph (`Seo.astro`), JSON-LD (`src/js/jsonLD.js`), sitemap (`@astrojs/sitemap`), `public/robots.txt`, `public/llms.txt` (met de hand bijhouden).
 
 ## Deploy
@@ -93,7 +135,6 @@ Netlify: team All This, site [`tuinierhier`](https://app.netlify.com/projects/tu
 ## Bekende issues en afspraken
 
 - Overstap van Webflow naar Netlify staat nog open. Domein altijd zonder `www`: in Netlify `tuinierhier.nl` als primair domein, `www` stuurt door.
-- In `src/content/nieuws/` staan nog voorbeeldposts van de Astro-starter (`markdown-style-guide.md`, `second-post.md`, `using-mdx.mdx`, `_third-post.md`) en meerdere posts met de placeholder-description "Een stadstuin met potentie.".
 - Webshop later als maatwerk.
 
 ---

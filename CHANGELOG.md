@@ -10,6 +10,10 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 ## [Unreleased]
 
 ### Toegevoegd
+- Alle vaste teksten als Markdown in `src/content/teksten/` (zijbalk, intro, diensten, contact); contactlinks in `src/content/links.json` voor zijbalk én contact.
+- Hero-video: pauzeknop (WCAG 2.2.2); start niet bij `prefers-reduced-motion`; pauzeert uit beeld. Specs en Handbrake-instellingen in de README.
+- Skip-link "Naar de inhoud"; bloem linkt naar home met een elastische bounce; "← Home" op `/nieuws`.
+- Nieuws: "Laad meer" met "Bekijk archief" eronder, gecentreerd.
 - Nieuws: de 9 echte berichten van de Webflow-site (teksten, datums, links), met URL's, titels en meta-descriptions 1-op-1 gelijk aan Webflow (`/nieuws/<slug>`, zonder slash aan het eind). Vier ontbraken nog: ambassadeur Onderhoudsarmoe, GrijsGroen, museumstuk, Rotterdams WeerWoord.
 - Home toont de nieuwste 3 berichten met een knop "Meer nieuws" (per 3, focus naar het eerste nieuwe bericht); zonder JS staan ze er allemaal.
 - `/nieuws`: overzichtspagina op `MainLayout` (vervangt de Astro-starterpagina `/blog/`). Redirect `/blog/*` → `/nieuws/*`.
@@ -18,6 +22,7 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 - `apple-touch-icon` (`/assets/webclip.png`).
 
 ### Gewijzigd
+- Beelden krijgen een `srcset` (`image.layout: 'constrained'`), ook in Markdown. Tailwind-tokens verwijzen naar de SCSS-variabelen (`@theme inline`).
 - Tailwind 4 via `@tailwindcss/vite`; config als `@theme` in `src/styles/tailwind.css`; klassen gemigreerd met `@tailwindcss/upgrade`. SCSS-basis in `@layer base` zodat de cascade gelijk blijft. Verwijderd: `@astrojs/tailwind`, `@tailwindcss/typography` (ongebruikt), autoprefixer, `postcss.config.mjs`.
 - Astro 6: content collection naar de Content Layer API (`src/content.config.ts`, glob-loader), `post.id` en `render(post)`. URL's ongewijzigd.
 - Astro 7 (Rust-compiler, Vite 8, Sätteri), `@astrojs/mdx` 8. `compressHTML: true` behouden.
@@ -27,6 +32,10 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 - `netlify.toml` (nieuw, alleen de `ignore`-regel; buildinstellingen staan in de Netlify-UI): geen build bij commits met alleen documentatie (`*.md` in de root, `.github/`). Markdown-content in `src/content/` start wel een build.
 
 ### Opgelost
+- Linkkleur in berichten: `--clr-brand` (8,9:1) in plaats van `--clr-green` (3,5:1), WCAG AA.
+- Na "Laad meer" kon je niet verder scrollen: Lenis mat de pagina via `<html>` (`height: 100%`); nu ResizeObserver op `body`.
+- E-mail overal eefje@tuinierhier.nl; LinkedIn naar het echte profiel.
+- Titel-animatie in de hero: schermlezers lezen het woord, niet losse letters. Klikdoelen ≥ 24px.
 - Berichten bevatten gekopieerde alinea's uit andere berichten en kapotte links (`https:/…`); opnieuw opgebouwd vanuit de live site. Tracking-parameters (`igshid`) uit Instagram-links.
 - Afbeeldingen in berichten via `src/assets` (WebP, lazy) in plaats van `public/` (Balkonton 2 MB → 0,9 MB).
 - Datums in het Nederlands (`7 okt 2023`).
@@ -34,6 +43,7 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 - `src/data/siteData.json` bevatte nog starterdata ("My Astro Blog"): naam, beschrijving en OG-alt nu Tuinierhier.
 
 ### Verwijderd
+- Google Fonts (Manrope nu zelf gehost via `@fontsource/manrope`), Atkinson-fonts en ongebruikte beelden in `public/` (~1,35 MB).
 - Starter-inhoud: voorbeeldposts (Markdown Style Guide, Sample Blog Post, Using MDX, …), `/blog/`-pagina met Astro-header, placeholderbeelden, `navData.js`.
 
 ### Beveiliging
