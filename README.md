@@ -146,7 +146,6 @@ Netlify: team All This, site [`tuinierhier`](https://app.netlify.com/projects/tu
 ## Bekende issues en afspraken
 
 - Overstap van Webflow naar Netlify staat nog open. Domein altijd zonder `www`: in Netlify `tuinierhier.nl` als primair domein, `www` stuurt door.
-- Webshop later als maatwerk.
 
 ---
 
