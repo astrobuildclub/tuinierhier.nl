@@ -210,13 +210,17 @@ const { title, description, pubDate, updatedDate, heroImage, links } = Astro.pro
     padding: 0;
   }
 
+  /* --clr-brand op geel: 8,9:1 (WCAG AA). --clr-green haalde maar 3,5:1. */
   :global(.post a) {
-    color: var(--clr-green);
+    color: var(--clr-brand);
     text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
   }
 
   :global(.post a:hover) {
     color: var(--clr-navy);
+    text-decoration-thickness: 2px;
   }
 
   :global(.post img) {
