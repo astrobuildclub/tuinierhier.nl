@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 let lenis: Lenis | null = null;
 let tickerCallback: ((time: number) => void) | null = null;
+let bodyObserver: ResizeObserver | null = null;
 
 /**
  * Check if user prefers reduced motion
@@ -46,11 +47,35 @@ export function initSmoothScroll(): Lenis | null {
 
     gsap.ticker.lagSmoothing(0);
 
+    // Lenis meet de pagina via <html>, maar die is `height: 100%` en verandert nooit.
+    // Groeit de inhoud (meer nieuws, later geladen afbeeldingen), dan blijft de scrolllimiet
+    // anders op de oude lengte staan en kun je niet verder scrollen. Daarom body observeren.
+    let lastHeight = document.body.scrollHeight;
+    let timer: ReturnType<typeof setTimeout>;
+    bodyObserver = new ResizeObserver(() => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const height = document.body.scrollHeight;
+        if (height === lastHeight) return;
+        lastHeight = height;
+        refreshScrollLength();
+      }, 100);
+    });
+    bodyObserver.observe(document.body);
+
     return lenis;
   } catch (error) {
     console.warn('Failed to initialize Lenis smooth scroll:', error);
     return null;
   }
+}
+
+/**
+ * Na een hoogteverandering van de pagina: Lenis en ScrollTrigger opnieuw laten meten.
+ */
+export function refreshScrollLength(): void {
+  lenis?.resize();
+  ScrollTrigger.refresh();
 }
 
 /**
@@ -61,6 +86,8 @@ export function destroySmoothScroll(): void {
     lenis.destroy();
     lenis = null;
   }
+  bodyObserver?.disconnect();
+  bodyObserver = null;
   
   // Remove GSAP ticker callback if it exists
   if (tickerCallback) {
