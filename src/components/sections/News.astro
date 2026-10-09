@@ -37,7 +37,7 @@ const posts = await getNieuws();
       ))
     }
   </div>
-  <div class="flex flex-wrap items-center justify-center gap-x-(--space-m) gap-y-(--space-xs)">
+  <div class="flex flex-col items-center gap-(--space-2xs)">
     {
       posts.length > PAGE_SIZE && (
         <Button variant="outline" data-news-more aria-controls="news-list" hidden>

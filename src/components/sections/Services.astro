@@ -1,73 +1,31 @@
 ---
 import ServicesAnimation from "../animations/ServicesAnimation.astro";
+import { getDiensten, getTekst } from "../../lib/teksten";
+
+// Teksten: src/content/teksten/diensten.md (kop) en diensten/*.md (één bestand per dienst).
+const sectie = await getTekst("diensten");
+const diensten = await getDiensten();
 ---
 
 <section
   class="bg-(--clr-pinky) p-(--space-m-2xl) lg:sticky lg:top-0 relative z-30"
   id="services-section"
 >
-  <h2 class="text-(length:--step--1) font-semibold">Diensten</h2>
+  <h2 class="text-(length:--step--1) font-semibold">{sectie.titel}</h2>
   <div
     class="grid gap-(--space-xs-s) lg:grid-cols-3 mt-(--space-2xs)"
   >
-    <div class="flex flex-col gap-(--space-3xs)">
-      <h3 class="font-heading text-(length:--step-3) tracking-normal">
-        Tuinfluencing
-      </h3>
-      <p class="text-(length:--step--1) font-semibold leading-normal">
-        Als tuinfluencer probeer ik de welwillende burger te inspireren en te
-        helpen om te vergroenen.
-      </p>
-      <p
-        class="text-(length:--step--2) leading-[150%] mt-(--space-3xs)"
-      >
-        Vergroenen is namelijk helemaal niet zo ingewikkeld; je haalt eens een
-        tegeltje weg, je plant eens een zaadje. Er kan eigenlijk niet zo veel
-        mis gaan. Het is een kwestie van doen. En als je het toch nog wat
-        spannend vindt om het alleen te doen, dan help ik je graag op weg met
-        tips en inspiratie. Deze vind je op instagram.com/tuinierhier.
-      </p>
-    </div>
-    <div class="flex flex-col gap-(--space-3xs)">
-      <h3 class="font-heading text-(length:--step-3) tracking-normal">
-        Social Content
-      </h3>
-      <p class="text-(length:--step--1) font-semibold leading-normal">
-        Ben je zelf al behoorlijk goed bezig qua vergroenen, klimaatadaptatie of
-        op een andere manier de wereld verbeteren, maar vind je social media een
-        noodzakelijk kwaad?
-      </p>
-      <p
-        class="text-(length:--step--2) leading-[150%] mt-(--space-3xs)"
-      >
-        Ik maak er graag een sport van om een boodschap of missie te vertalen
-        naar leerzame, inspirerende filmpjes, fotos en/of teksten. Op die manier
-        bereik je meer mensen die misschien toch ook maar eens een waterton gaan
-        aansluiten, een tegeltje gaan wippen of biologische planten gaan inkopen
-        om de biodiversiteit een zetje in de goede richting te geven.
-      </p>
-    </div>
-    <div class="flex flex-col gap-(--space-3xs)">
-      <h3 class="font-heading text-(length:--step-3) tracking-normal">
-        Tuinadvies
-      </h3>
-      <p class="text-(length:--step--1) font-semibold leading-normal">
-        Woon je in Rotterdam, heb je een tuin of balkon, maar weet je niet zo
-        goed wat je er mee moet? En wil je niet meteen een hovenier of
-        tuinarchitect inschakelen?
-      </p>
-      <p
-        class="text-(length:--step--2) leading-[150%] mt-(--space-3xs)"
-      >
-        Ik fiets graag bij je langs om samen te kijken wat je allemaal al hebt
-        staan, wat je graag nog zou willen en hoe je dat zou kunnen aanpakken.
-      </p>
-      <!-- <img
-        src="https://via.placeholder.com/400x600/333?text=2:3"
-        alt="image"
-        class="w-full"
-      /> -->
-    </div>
+    {
+      diensten.map((dienst) => (
+        <div class="flex flex-col gap-(--space-3xs)">
+          <h3 class="font-heading text-(length:--step-3) tracking-normal">{dienst.titel}</h3>
+          <p class="text-(length:--step--1) font-semibold leading-normal">{dienst.intro}</p>
+          <div class="text-(length:--step--2) leading-[150%] mt-(--space-3xs) [&_p]:m-0 [&_p+p]:mt-(--space-3xs)">
+            <dienst.Content />
+          </div>
+        </div>
+      ))
+    }
   </div>
 </section>
 <ServicesAnimation />

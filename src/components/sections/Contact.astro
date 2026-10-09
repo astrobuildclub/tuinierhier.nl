@@ -4,13 +4,18 @@ import { Image } from "astro:assets";
 // Contact section component
 // Use local image from assets
 import contactImageSrc from "../../assets/img-contact.jpg";
+import { getLinks, getTekst } from "../../lib/teksten";
+
+// Teksten: src/content/teksten/contact.md; links: src/content/links.json (gedeeld met de zijbalk).
+const contact = await getTekst("contact");
+const links = await getLinks();
 ---
 
 <section
   class="bg-(--clr-green) px-(--space-m-xl) py-(--space-xl-2xl) flex flex-col gap-(--space-l) relative z-50"
 >
   <p class="text-(length:--step--2) font-bold text-black m-0">
-    samenwerken?
+    {contact.label}
   </p>
 
   <div class="flex flex-col gap-(--space-l) lg:flex-row lg:items-start">
@@ -34,39 +39,27 @@ import contactImageSrc from "../../assets/img-contact.jpg";
       <h2
         class="font-heading font-extrabold text-(length:--step-1) leading-tight text-black m-0"
       >
-        Contact
+        {contact.titel}
       </h2>
 
       <div class="flex flex-col gap-(--space-xs)">
-        <p class="text-(length:--step--2) font-bold leading-[1.33] m-0">
-          Heb je een vraag of wil je samenwerken? Ik hoor het graag!
-        </p>
+        <div class="text-(length:--step--2) font-bold leading-[1.33] [&_p]:m-0">
+          <contact.Content />
+        </div>
 
-        <ul class="flex flex-col gap-1 list-none p-0 m-0">
-          <li>
-            <a
-              href="https://instagram.com/tuinierhier"
-              class="text-(length:--step--2) font-bold text-black leading-tight hover:underline"
-            >
-              → instagram.com/tuinierhier
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://linkedin.com/tuinierhier"
-              class="text-(length:--step--2) font-bold text-black leading-tight hover:underline"
-            >
-              → linkedin.com/tuinierhier
-            </a>
-          </li>
-          <li>
-            <a
-              href="mailto:hoi@tuinierhier.nl"
-              class="text-(length:--step--2) font-bold text-black leading-tight hover:underline"
-            >
-              → hoi@tuinierhier.nl
-            </a>
-          </li>
+        <ul class="flex flex-col list-none p-0 m-0">
+          {
+            links.map(({ label, url }) => (
+              <li>
+                <a
+                  href={url}
+                  class="inline-flex min-h-6 items-center text-(length:--step--2) font-bold text-black leading-tight hover:underline"
+                >
+                  → {label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>

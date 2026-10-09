@@ -1,37 +1,34 @@
 ---
 import { NAME } from "../../consts";
 import FooterAnimation from "../animations/FooterAnimation.astro";
+import { getLinks, getTekst } from "../../lib/teksten";
+
+// Teksten: src/content/teksten/sidebar.md; links: src/content/links.json (gedeeld met Contact).
+const sidebar = await getTekst("sidebar");
+const links = await getLinks();
 const today = new Date();
 ---
 
 <footer
   class="footer-sidebar bg-white min-h-[50vh] lg:h-screen grid overflow-visible content-between lg:sticky top-0 self-start z-60 p-(--space-m-xl) pb-(--space-m-3xs) lg:p-(--space-s) lg:pb-(--space-m-3xs) lg:order-1"
 >
-  <p
-    class="text-(length:--step--1) lg:text-(length:--step--2) font-bold leading-tight text-pretty lg:leading-normal"
+  <div
+    class="text-(length:--step--1) lg:text-(length:--step--2) font-bold leading-tight text-pretty lg:leading-normal [&_p]:m-0"
   >
-    Tuinierhier is Eefje Peddemors; tuinfluencer, plantlover, kweekbeest,
-    tuintijger en gardenista sur plus. Maakt grijze ongezellige situaties groen
-    en gezellig.
-  </p>
+    <sidebar.Content />
+  </div>
 
   <div class="grid gap-2">
     <ul class="grid text-(length:--step--2) font-bold">
-      <li>
-        <a href="https://instagram.com/tuinierhier" class="footer-link">
-          instagram.com/tuinierhier
-        </a>
-      </li>
-      <li>
-        <a href="https://linkedin.com/" class="footer-link">
-          linkedin.com/eefjepeddemors
-        </a>
-      </li>
-      <li>
-        <a href="mailto:eefje@tuinierhier.nl" class="footer-link">
-          eefje@tuinierhier.nl
-        </a>
-      </li>
+      {
+        links.map(({ label, url }) => (
+          <li>
+            <a href={url} class="footer-link">
+              {label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
     <div
       class="flex justify-between items-center mt-(--space-xs) text-(length:--step--2) lg:text-[10px] font-bold text-gray-500 lg:gap-1"
