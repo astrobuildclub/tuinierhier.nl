@@ -17,9 +17,10 @@ export default defineConfig({
       cssCodeSplit: false,
       rollupOptions: {
         output: {
-          manualChunks: {
-            'gsap': ['gsap'],
-            'lenis': ['lenis']
+          // Functievorm: Vite 7 staat de object-vorm niet toe voor modules die in de server-build extern zijn.
+          manualChunks(id) {
+            if (id.includes('node_modules/gsap')) return 'gsap';
+            if (id.includes('node_modules/lenis')) return 'lenis';
           }
         }
       }

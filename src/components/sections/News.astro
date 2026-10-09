@@ -18,7 +18,7 @@ const posts = (await getCollection("blog")).sort(
     {
       posts.map((post, index) => (
         <Card
-          href={`/blog/${post.slug}/`}
+          href={`/blog/${post.id}/`}
           imageSrc={post.data.heroImage.src}
           imageAlt={post.data.heroImage.alt}
           title={post.data.title}
