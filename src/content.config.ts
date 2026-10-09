@@ -23,7 +23,7 @@ const nieuws = defineCollection({
     }),
 });
 
-// Vaste teksten van de site (zijbalk, intro, diensten, contact): één Markdown-bestand per blok
+// Vaste teksten van de site (zijbalk, intro, diensten, contact, privacy): één Markdown-bestand per blok
 // in src/content/teksten/. De id is het pad zonder .md, bv. "intro-links" of "diensten/tuinadvies".
 const teksten = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/teksten" }),
@@ -32,6 +32,8 @@ const teksten = defineCollection({
     intro: z.string().optional(),
     label: z.string().optional(),
     volgorde: z.number().optional(),
+    // Tekstpagina's (privacy.md): datum van de laatste versie.
+    bijgewerkt: z.coerce.date().optional(),
   }),
 });
 

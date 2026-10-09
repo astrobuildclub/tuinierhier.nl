@@ -82,6 +82,7 @@ Alle vaste teksten staan als Markdown in `src/content/teksten/`. Gewoon de tekst
 | `diensten.md` | Kop "Diensten" (`titel`) |
 | `diensten/*.md` | Eén dienst per bestand: `titel`, `intro` (vet), tekst = body, `volgorde` |
 | `contact.md` | Groene sectie: `label` ("samenwerken?"), `titel`, tekst = body |
+| `privacy.md` | Pagina `/privacy` (link in de footer): `titel`, `intro`, `bijgewerkt` (datum), tekst = body. Opmaak als een nieuwsbericht (`src/styles/prose.scss`) |
 | `../links.json` | Instagram, LinkedIn, e-mail: één lijst voor zijbalk én contact (`volgorde`) |
 
 Nieuwe dienst: kopieer een bestand in `diensten/` en pas `volgorde` aan.
@@ -125,7 +126,7 @@ Bestanden in `public/assets/`, en in `src/components/sections/Hero.astro` de lij
 
 ## Privacy, toegankelijkheid en SEO
 
-- Consent: geen statistiek of embeds. Manrope is zelf gehost (`@fontsource/manrope`). Typekit (new-spirit, anchor-web) blijft extern: Adobe Fonts mag je niet zelf hosten. Dat stuurt het IP-adres van bezoekers naar Adobe; vermelden in de privacyverklaring.
+- Consent: geen statistiek of embeds. Manrope is zelf gehost (`@fontsource/manrope`). Typekit (new-spirit, anchor-web) blijft extern: Adobe Fonts mag je niet zelf hosten. Dat stuurt het IP-adres van bezoekers naar Adobe; staat in de privacyverklaring (`/privacy`, concept: de [haakjes] vult de klant nog in).
 - WCAG 2.2 AA: animaties respecteren `prefers-reduced-motion` (de hero-video start dan niet); hero-video heeft een pauzeknop; skip-link naar `#inhoud`.
 - SEO en AI readiness volgens `~/Code/_standards/SEO.md`: meta en Open Graph (`Seo.astro`), JSON-LD (`src/js/jsonLD.js`), sitemap (`@astrojs/sitemap`), `public/robots.txt`, `public/llms.txt` (met de hand bijhouden).
 
