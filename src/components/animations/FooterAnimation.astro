@@ -3,12 +3,18 @@
 ---
 
 <script>
+  // Bloem draait mee met de scrollpositie (1° per px). Alleen `rotate`: de positie
+  // (midden op de rand) komt van de Tailwind-klassen, die in v4 de `translate`-property gebruiken.
   const elem = document.querySelector(".bloem") as HTMLElement;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (elem) {
-    window.addEventListener("scroll", function () {
-      const value = window.scrollY * 1;
-      elem.style.transform = `translateX(50%) translateY(-50%) rotate(${value}deg)`;
-    });
+  if (elem && !reducedMotion) {
+    window.addEventListener(
+      "scroll",
+      () => {
+        elem.style.rotate = `${window.scrollY}deg`;
+      },
+      { passive: true }
+    );
   }
 </script>
