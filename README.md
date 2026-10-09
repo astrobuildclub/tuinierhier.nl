@@ -100,7 +100,9 @@ Achtergrond van de hero: gedimd, uitgezoomd bij scrollen, zonder geluid, in een 
 | Geluid | **geen audiospoor** | geen | |
 | Doel | MP4 ≤ 1,2 MB · WebM ≤ 0,9 MB | ≤ 0,8 MB | ≤ 120 kB |
 
-**Handbrake** (vanaf het origineel, niet vanaf de huidige transcode):
+**Handbrake-presets:** importeer [`docs/video/handbrake-presets.json`](docs/video/handbrake-presets.json) (*Presets → Import from File*). Dan heb je een map "Tuinierhier website" met *Website desktop (MP4)*, *Website mobiel (MP4, 9:16)* en *Website desktop (WebM)*. Start altijd vanaf het origineel, niet vanaf de huidige transcode. Bij de mobiele preset staat de uitsnede op een 1920×1080-bron (links en rechts 656 px). Bij 4K is dat 1312 px, bij een staande bron 0. Controleer dat in het tabblad *Dimensions*.
+
+**Handmatig in Handbrake** (zelfde instellingen):
 
 1. Preset *General → Fast 720p30* als basis.
 2. **Summary:** Format MP4, ✓ *Web Optimized* (moov-atom vooraan: start sneller), ✓ *Align A/V Start*.
