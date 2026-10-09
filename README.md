@@ -88,11 +88,11 @@ Nieuwe dienst: kopieer een bestand in `diensten/` en pas `volgorde` aan.
 
 ### Hero-video
 
-Achtergrond van de hero: gedimd, uitgezoomd bij scrollen, zonder geluid, in een lus. Hij hoeft dus niet scherp te zijn, wel licht. De huidige bestanden (1280×720, 6,9 s) zijn 3,5 MB (MP4) en 2,1 MB (WebM): veel te zwaar.
+Achtergrond van de hero: gedimd, uitgezoomd bij scrollen, zonder geluid, in een lus. Hij hoeft dus niet scherp te zijn, wel licht. Huidig: `bloemenhommel-desktop.mp4` (1280×720, 1,4 MB) en `bloemenhommel-mobile.mp4` (408×720, 0,5 MB), gemaakt met de presets hieronder vanaf de oude transcode van 3,4 MB. Alleen MP4: een WebM vanaf deze bron werd groter (2 MB).
 
 | | Desktop (liggend) | Mobiel (staand, optioneel) | Poster |
 |---|---|---|---|
-| Bestand | `hero-1280.mp4` + `hero-1280.webm` | `hero-720x1280.mp4` + `.webm` | `hero-poster.jpg` |
+| Bestand | `bloemenhommel-desktop.mp4` (+ evt. `.webm`) | `bloemenhommel-mobile.mp4` | `bloemenhommel-poster.jpg` |
 | Afmeting | 1280×720 (16:9) | 720×1280 (9:16), midden uitgesneden | 1280×720 |
 | Duur | 6–10 s, naadloze lus | idem | eerste frame |
 | Framerate | 25 fps, constant | 25 fps | |
@@ -121,7 +121,7 @@ Formule: breedte bij 9:16 = bronhoogte × 9/16, afgerond op een even getal. Uits
 6. WebM: zelfde instellingen, Format *WebM*, Encoder *VP9*, Quality *CQ 34*.
 7. Poster: in QuickTime het eerste frame exporteren, of `ffmpeg -i hero-1280.mp4 -frames:v 1 -q:v 4 hero-poster.jpg`.
 
-Bestanden in `public/assets/`, en in `src/components/sections/Hero.astro` de lijst `video.sources` en `video.poster` aanpassen. Lichtste bron eerst (WebM). Mobiele versie bovenaan met `media: "(max-width: 767px) and (orientation: portrait)"`.
+Bestanden in `public/assets/`, en in `src/components/sections/Hero.astro` de lijst `video.sources` en `video.poster` aanpassen. Mobiele versie bovenaan met `media: "(max-width: 767px) and (orientation: portrait)"`. Een WebM alleen toevoegen (vóór de MP4) als hij echt kleiner is.
 
 ## Privacy, toegankelijkheid en SEO
 

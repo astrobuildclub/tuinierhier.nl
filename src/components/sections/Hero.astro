@@ -3,15 +3,18 @@ import { NAME, NAME_REAL } from "../../consts";
 import Tag from "../common/Tag.astro";
 import HeroAnimation from "../animations/HeroAnimation.astro";
 
-// Achtergrondvideo. Specs en Handbrake-instellingen: README → "Hero-video".
-// Lichtste bron eerst; de browser pakt de eerste die hij kan afspelen.
-// Komt er een staande mobiele versie, voeg dan bovenaan bronnen toe met
-// media="(max-width: 767px) and (orientation: portrait)".
+// Achtergrondvideo. Specs en Handbrake-presets: README → "Hero-video".
+// De browser pakt de eerste bron die past: staande telefoon → mobiele versie (9:16, 0,5 MB),
+// anders de liggende (16:9, 1,4 MB). Alleen MP4/H.264: speelt overal; WebM was hier niet kleiner.
 const video = {
   poster: "/assets/bloemenhommel-poster.jpg",
   sources: [
-    { src: "/assets/bloemenhommel-transcode.webm", type: "video/webm" },
-    { src: "/assets/bloemenhommel-transcode.mp4", type: "video/mp4" },
+    {
+      src: "/assets/bloemenhommel-mobile.mp4",
+      type: "video/mp4",
+      media: "(max-width: 767px) and (orientation: portrait)",
+    },
+    { src: "/assets/bloemenhommel-desktop.mp4", type: "video/mp4" },
   ] as { src: string; type: string; media?: string }[],
 };
 ---
