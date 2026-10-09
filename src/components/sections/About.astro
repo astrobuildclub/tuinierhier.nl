@@ -1,15 +1,9 @@
 ---
-// About section component
-// Content data
-const aboutContent = {
-  intro:
-    "Ik ben Eefje en ik houd niet zo van grijs en wel van groen. En van beestjes. En bloemen. Omdat het fijner is om naar te kijken aan te ruiken en aan te voelen. En ik vind dat er wel wat meer bij kan.",
+// Intro: teksten in src/content/teksten/intro-links.md en intro-rechts.md
+import { getTekst } from "../../lib/teksten";
 
-  details: [
-    "Ik ken heel wat mensen die best graag meer zouden willen met groen. Of die nog wel een stap verder zouden willen gaan en ook nog wel wat regenwater zouden willen opvangen, of willen helpen de bijensterfte tegen te gaan, meer vlindersoorten in stand te houden, vogels en egels fijne plekken te bieden.",
-    "Maar hoe dan? En gaat daar niet heel veel tijd en onderhoud in zitten? Moet je daar dan verstand van hebben? Of groene vingers? Ik zeg: NEE. Volg mij gewoon. Ik doe uiteindelijk ook maar wat. Zowel online als 'In Real Life'. Doe vooral gezellig met me mee. Je krijgt er geen spijt van. Beloofd.",
-  ],
-};
+const links = await getTekst("intro-links");
+const rechts = await getTekst("intro-rechts");
 ---
 
 <section
@@ -18,24 +12,14 @@ const aboutContent = {
   id="about-section"
 >
   <div class="grid gap-(--space-s-m) lg:grid-cols-2">
-    <div class="lg:col-span-1">
-      <p class="text-(length:--step-1) font-bold leading-[133%] m-0">
-        {aboutContent.intro}
-      </p>
+    <div class="lg:col-span-1 text-(length:--step-1) font-bold leading-[133%] [&_p]:m-0 [&_p]:leading-[inherit]">
+      <links.Content />
     </div>
 
-    <div class="lg:col-span-1 grid gap-(--step--2)">
-      {
-        aboutContent.details.map((detail, index) => (
-          <p
-            class={`text-(length:--step--2) font-bold leading-[150%] m-0 ${
-              index === aboutContent.details.length - 1 ? "font-medium" : ""
-            }`}
-          >
-            {detail}
-          </p>
-        ))
-      }
+    <div
+      class="lg:col-span-1 grid gap-(--step--2) text-(length:--step--2) font-bold leading-[150%] [&_p]:m-0 [&_p]:leading-[inherit] [&>p:last-child]:font-medium"
+    >
+      <rechts.Content />
     </div>
   </div>
 </section>

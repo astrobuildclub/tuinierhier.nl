@@ -5,6 +5,10 @@ import Footer from "../components/layout/Footer.astro";
 import SmoothScroll from "../components/animations/SmoothScroll.astro";
 
 // Style imports
+// Manrope zelf gehost: alleen de gewichten die we gebruiken (500, 800), alleen Latin.
+// Geen verzoek meer naar Google Fonts (AVG: geen IP-adres van bezoekers naar Google).
+import "@fontsource/manrope/latin-500.css";
+import "@fontsource/manrope/latin-800.css";
 import "../styles/global.scss";
 import "../styles/tailwind.css";
 
@@ -28,8 +32,9 @@ const {
 <html lang="nl">
   <MainHead {title} {description} {image} {robots} />
   <body>
+    <a href="#inhoud" class="skip-link">Naar de inhoud</a>
     <div class="page-wrap">
-      <main class="main-content">
+      <main class="main-content" id="inhoud" tabindex="-1">
         <slot />
       </main>
       <Footer />
@@ -40,6 +45,28 @@ const {
       initStickyFit();
     </script>
     <style>
+      /* Skip-link: onzichtbaar tot hij focus krijgt (eerste Tab op de pagina). */
+      .skip-link {
+        position: fixed;
+        top: var(--space-2xs);
+        left: var(--space-2xs);
+        z-index: 1000;
+        padding: var(--space-2xs) var(--space-s);
+        background: var(--clr-black);
+        color: var(--clr-white);
+        font-weight: 700;
+        border-radius: 999px;
+        translate: 0 -200%;
+      }
+      .skip-link:focus-visible {
+        translate: 0 0;
+        outline: 2px solid var(--clr-yellow);
+        outline-offset: 2px;
+      }
+      #inhoud:focus {
+        outline: none;
+      }
+
       /* Page wrapper base styles */
       .page-wrap {
         height: 100%;

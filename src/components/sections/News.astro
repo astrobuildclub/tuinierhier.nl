@@ -4,7 +4,7 @@ import Card from "../common/Card.astro";
 import Button from "../common/Button.astro";
 import { getNieuws } from "../../lib/nieuws";
 
-// Eerst 3 berichten, daarna per 3 erbij via "Meer nieuws".
+// Eerst 3 berichten, daarna per 3 erbij via "Laad meer"; "Bekijk archief" gaat naar /nieuws.
 // Zonder JS staan alle berichten er gewoon; het script verbergt de rest pas.
 const PAGE_SIZE = 3;
 const posts = await getNieuws();
@@ -37,23 +37,27 @@ const posts = await getNieuws();
       ))
     }
   </div>
-  {
-    posts.length > PAGE_SIZE && (
-      <div class="flex flex-wrap items-center gap-(--space-s)">
+  <div class="flex flex-col items-center gap-(--space-2xs)">
+    {
+      posts.length > PAGE_SIZE && (
         <Button variant="outline" data-news-more aria-controls="news-list" hidden>
-          Meer nieuws
+          Laad meer
         </Button>
-        <a href="/nieuws" class="font-bold text-(length:--step--1) underline">
-          Alle nieuws
-        </a>
-      </div>
-    )
-  }
+      )
+    }
+    <a
+      href="/nieuws"
+      class="inline-flex min-h-11 items-center font-bold text-(length:--step--1) underline underline-offset-4 decoration-1 hover:decoration-2"
+    >
+      Bekijk archief
+    </a>
+  </div>
 </section>
 
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { refreshScrollLength } from "../../utils/smoothScroll";
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -83,8 +87,8 @@ const posts = await getNieuws();
       next[0]?.querySelector<HTMLAnchorElement>("a")?.focus({ preventScroll: false });
 
       if (shown >= items.length) more.hidden = true;
-      // Sectiehoogte veranderd: triggers (sticky, animaties) opnieuw meten.
-      ScrollTrigger.refresh();
+      // Pagina is langer: Lenis en ScrollTrigger direct de nieuwe lengte laten meten.
+      refreshScrollLength();
     });
   }
 

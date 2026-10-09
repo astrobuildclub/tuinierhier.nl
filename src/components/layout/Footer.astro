@@ -1,37 +1,34 @@
 ---
 import { NAME } from "../../consts";
 import FooterAnimation from "../animations/FooterAnimation.astro";
+import { getLinks, getTekst } from "../../lib/teksten";
+
+// Teksten: src/content/teksten/sidebar.md; links: src/content/links.json (gedeeld met Contact).
+const sidebar = await getTekst("sidebar");
+const links = await getLinks();
 const today = new Date();
 ---
 
 <footer
   class="footer-sidebar bg-white min-h-[50vh] lg:h-screen grid overflow-visible content-between lg:sticky top-0 self-start z-60 p-(--space-m-xl) pb-(--space-m-3xs) lg:p-(--space-s) lg:pb-(--space-m-3xs) lg:order-1"
 >
-  <p
-    class="text-(length:--step--1) lg:text-(length:--step--2) font-bold leading-tight text-pretty lg:leading-normal"
+  <div
+    class="text-(length:--step--1) lg:text-(length:--step--2) font-bold leading-tight text-pretty lg:leading-normal [&_p]:m-0 [&_p]:leading-[inherit]"
   >
-    Tuinierhier is Eefje Peddemors; tuinfluencer, plantlover, kweekbeest,
-    tuintijger en gardenista sur plus. Maakt grijze ongezellige situaties groen
-    en gezellig.
-  </p>
+    <sidebar.Content />
+  </div>
 
   <div class="grid gap-2">
     <ul class="grid text-(length:--step--2) font-bold">
-      <li>
-        <a href="https://instagram.com/tuinierhier" class="footer-link">
-          instagram.com/tuinierhier
-        </a>
-      </li>
-      <li>
-        <a href="https://linkedin.com/" class="footer-link">
-          linkedin.com/eefjepeddemors
-        </a>
-      </li>
-      <li>
-        <a href="mailto:eefje@tuinierhier.nl" class="footer-link">
-          eefje@tuinierhier.nl
-        </a>
-      </li>
+      {
+        links.map(({ label, url }) => (
+          <li>
+            <a href={url} class="footer-link">
+              {label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
     <div
       class="flex justify-between items-center mt-(--space-xs) text-(length:--step--2) lg:text-[10px] font-bold text-gray-500 lg:gap-1"
@@ -48,18 +45,57 @@ const today = new Date();
       </div>
     </div>
   </div>
-  <div
+  <a
+    href="/"
+    aria-label="Tuinierhier, naar de homepage"
     class="bloem absolute top-0 left-1/2 w-12 -translate-x-1/2 -translate-y-1/2 lg:top-1/2 lg:left-auto lg:right-0 lg:w-16 lg:translate-x-1/2 lg:-translate-y-1/2 lg:z-999"
   >
-    <img
-      src="/assets/tuinierhier-bloem.svg"
-      alt="Tuinierhier bloem decoratie"
-    />
-  </div>
+    <img src="/assets/tuinierhier-bloem.svg" alt="" width="64" height="64" />
+  </a>
 </footer>
 <FooterAnimation />
 
 <style>
+  /* Bloem = link naar home met een elastische bounce.
+     Drie losse transform-properties die elkaar niet raken:
+     - translate (Tailwind-klassen op .bloem): midden op de rand
+     - rotate (FooterAnimation, op .bloem): draait mee met scrollen
+     - scale (hier, op de img): de bounce
+     De linear()-curve schiet door tot ~1,3, zakt terug onder 1,2 en wiebelt uit: een veer. */
+  .bloem {
+    display: block;
+    border-radius: 50%;
+  }
+  .bloem img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: scale 750ms
+      linear(0, 0.42 7%, 0.82 14%, 1.1 21%, 1.24 28%, 1.27 33%, 1.22 40%, 1.1 50%, 1 59%, 0.96 66%, 0.97 75%, 1 88%, 1);
+  }
+  .bloem:hover img,
+  .bloem:focus-visible img {
+    scale: 1.2;
+  }
+  .bloem:active img {
+    scale: 0.9;
+    transition-duration: 120ms;
+    transition-timing-function: ease-out;
+  }
+  .bloem:focus-visible {
+    outline: 2px solid var(--clr-black);
+    outline-offset: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bloem img {
+      transition: scale 150ms ease-out;
+    }
+    .bloem:hover img,
+    .bloem:focus-visible img {
+      scale: 1.08;
+    }
+  }
+
   /* Footer Layout */
   .footer-sidebar {
     background: white;

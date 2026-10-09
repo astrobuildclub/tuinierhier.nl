@@ -1,24 +1,26 @@
 @import 'tailwindcss';
 
+/* Eén bron voor de tokens: de waarden staan in src/styles/_variables.scss (:root).
+   `inline` laat de utilities direct naar die variabelen verwijzen, bv. .bg-clr-green → var(--clr-green). */
+@theme inline {
+  --font-heading: var(--font-heading);
+  --font-heading-alt: var(--font-heading-alt);
+  --font-body: var(--font-body);
+  --font-extra: var(--font-extra);
+
+  --color-clr-black: var(--clr-black);
+  --color-clr-white: var(--clr-white);
+  --color-clr-green: var(--clr-green);
+  --color-clr-yellow: var(--clr-yellow);
+  --color-clr-blue: var(--clr-blue);
+  --color-clr-navy: var(--clr-navy);
+  --color-clr-orange: var(--clr-orange);
+  --color-clr-pinky: var(--clr-pinky);
+  --color-clr-yellow-warm: var(--clr-yellow-warm);
+  --color-clr-brand: var(--clr-brand);
+}
+
 @theme {
-  --font-heading:
-    new-spirit-condensed, Helvetica Neue, Helvetica, system-ui, sans-serif;
-  --font-heading-alt:
-    new-spirit, Helvetica Neue, Helvetica, system-ui, sans-serif;
-  --font-body: Manrope, Helvetica Neue, Helvetica, system-ui, sans-serif;
-  --font-extra: anchor-web, Helvetica Neue, Helvetica, system-ui, sans-serif;
-
-  --color-clr-black: #000;
-  --color-clr-white: #ffffff;
-  --color-clr-green: #029c54;
-  --color-clr-yellow: #feffc9;
-  --color-clr-blue: #d9f9ff;
-  --color-clr-navy: #035669;
-  --color-clr-orange: #f55b1d;
-  --color-clr-pinky: #f9dae5;
-  --color-clr-yellow-warm: #ffc76e;
-  --color-clr-brand: #005500;
-
   --radius-full: 50vw;
 }
 

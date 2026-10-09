@@ -11,6 +11,10 @@ export default defineConfig({
   trailingSlash: 'never',
   // Astro 7 gebruikt standaard 'jsx': witruimte tussen elementen verdwijnt ("Home Blog" → "HomeBlog").
   compressHTML: true,
+  // Afbeeldingen (ook in Markdown) krijgen een srcset in meerdere breedtes, nooit breder dan het origineel.
+  image: {
+    layout: 'constrained',
+  },
   build: {
     format: 'file',
     inlineStylesheets: 'auto',

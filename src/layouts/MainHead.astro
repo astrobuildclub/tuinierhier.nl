@@ -19,18 +19,9 @@ const { title, description, image, frontmatter, robots } = Astro.props;
 
   <Seo {title} {description} url={Astro.url} {image} {frontmatter} {robots} />
 
-  <!-- Performance optimizations -->
-  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-  <link rel="dns-prefetch" href="//use.typekit.net" />
-
-  <!-- Typography with preload -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;800&display=swap"
-    rel="stylesheet"
-  />
+  <!-- Fonts: Manrope zelf gehost (MainLayout, @fontsource). Typekit (new-spirit, anchor-web)
+       kan niet zelf gehost worden (licentie Adobe Fonts); daarom alleen die extern. -->
+  <link rel="preconnect" href="https://use.typekit.net" crossorigin />
   <link rel="stylesheet" href="https://use.typekit.net/cjb2kfe.css" />
 
   <!-- Critical CSS inline -->

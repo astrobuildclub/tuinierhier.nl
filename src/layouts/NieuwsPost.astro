@@ -82,14 +82,6 @@ const { title, description, pubDate, updatedDate, heroImage, links } = Astro.pro
     margin-bottom: var(--space-xs);
   }
 
-  .back-to-news {
-    text-decoration: none;
-    transition: transform 0.2s ease;
-  }
-
-  .back-to-news:hover {
-    transform: translateX(-2px);
-  }
 
   .title {
     margin: 1rem 0 0 0;
@@ -116,6 +108,9 @@ const { title, description, pubDate, updatedDate, heroImage, links } = Astro.pro
   }
 
   .links a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 24px;
     font-weight: 700;
     color: inherit;
   }
@@ -210,13 +205,17 @@ const { title, description, pubDate, updatedDate, heroImage, links } = Astro.pro
     padding: 0;
   }
 
+  /* --clr-brand op geel: 8,9:1 (WCAG AA). --clr-green haalde maar 3,5:1. */
   :global(.post a) {
-    color: var(--clr-green);
+    color: var(--clr-brand);
     text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
   }
 
   :global(.post a:hover) {
     color: var(--clr-navy);
+    text-decoration-thickness: 2px;
   }
 
   :global(.post img) {
@@ -253,10 +252,13 @@ const { title, description, pubDate, updatedDate, heroImage, links } = Astro.pro
     }
   }
 
+  /* Klikdoel minimaal 24×24 (WCAG 2.5.8). */
   .back-to-news {
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: 24px;
+    min-block-size: 24px;
     text-decoration: none;
-    display: inline-block;
-
     transition: transform 0.2s ease;
   }
 

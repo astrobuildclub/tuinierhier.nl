@@ -1,5 +1,5 @@
 import { defineCollection } from "astro:content";
-import { glob } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 // Nieuwsberichten: één Markdown-bestand per bericht in src/content/nieuws/.
@@ -23,4 +23,26 @@ const nieuws = defineCollection({
     }),
 });
 
-export const collections = { nieuws };
+// Vaste teksten van de site (zijbalk, intro, diensten, contact): één Markdown-bestand per blok
+// in src/content/teksten/. De id is het pad zonder .md, bv. "intro-links" of "diensten/tuinadvies".
+const teksten = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/teksten" }),
+  schema: z.object({
+    titel: z.string().optional(),
+    intro: z.string().optional(),
+    label: z.string().optional(),
+    volgorde: z.number().optional(),
+  }),
+});
+
+// Contactlinks, één bron voor de zijbalk en de contactsectie, gesorteerd op `volgorde`.
+const links = defineCollection({
+  loader: file("src/content/links.json"),
+  schema: z.object({
+    label: z.string(),
+    url: z.string(),
+    volgorde: z.number(),
+  }),
+});
+
+export const collections = { nieuws, teksten, links };
