@@ -67,3 +67,17 @@ Check out [our documentation](https://docs.astro.build) or jump into our [Discor
 
 This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
 # tuinierhier.nl
+
+## Deploy
+
+### Branches
+
+| Branch | Deploy | URL |
+|---|---|---|
+| `main` | Productie | https://tuinierhier.netlify.app |
+| `staging` | Branch deploy (goedgekeurde features, nog niet live) | https://staging--tuinierhier.netlify.app |
+| PR's | Deploy preview | link in de PR |
+
+Features gaan via een PR naar `staging`. Naar `main` alleen gebundelde releases (PR `staging → main`) en hotfixes. Commits met alleen documentatie (`*.md` in de root, `.github/`) starten geen build; Markdown-content in `src/content/` wel. Zie `~/Code/_standards/DEPLOY.md`.
+
+Netlify: team All This, site [`tuinierhier`](https://app.netlify.com/projects/tuinierhier).
