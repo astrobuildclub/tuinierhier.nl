@@ -1,5 +1,8 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from "astro/types";
+
+// Gewone HTML-attributen (aria-*, hidden, data-*) gaan door naar <a> of <button>.
+export interface Props extends Omit<HTMLAttributes<"button">, "type" | "class"> {
   href?: string;
   variant?: "primary" | "secondary" | "outline";
   class?: string;

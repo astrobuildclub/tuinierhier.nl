@@ -10,6 +10,10 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 ## [Unreleased]
 
 ### Toegevoegd
+- Nieuws: de 9 echte berichten van de Webflow-site (teksten, datums, links), met URL's, titels en meta-descriptions 1-op-1 gelijk aan Webflow (`/nieuws/<slug>`, zonder slash aan het eind). Vier ontbraken nog: ambassadeur Onderhoudsarmoe, GrijsGroen, museumstuk, Rotterdams WeerWoord.
+- Home toont de nieuwste 3 berichten met een knop "Meer nieuws" (per 3, focus naar het eerste nieuwe bericht); zonder JS staan ze er allemaal.
+- `/nieuws`: overzichtspagina op `MainLayout` (vervangt de Astro-starterpagina `/blog/`). Redirect `/blog/*` → `/nieuws/*`.
+- Alt-teksten die beschrijven wat er op de foto's staat; intro en externe links onder elk bericht.
 - `public/llms.txt` (met de hand, geen CMS) en een `<link rel="alternate">` ernaar in de head.
 - `apple-touch-icon` (`/assets/webclip.png`).
 
@@ -23,8 +27,14 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 - `netlify.toml` (nieuw, alleen de `ignore`-regel; buildinstellingen staan in de Netlify-UI): geen build bij commits met alleen documentatie (`*.md` in de root, `.github/`). Markdown-content in `src/content/` start wel een build.
 
 ### Opgelost
+- Berichten bevatten gekopieerde alinea's uit andere berichten en kapotte links (`https:/…`); opnieuw opgebouwd vanuit de live site. Tracking-parameters (`igshid`) uit Instagram-links.
+- Afbeeldingen in berichten via `src/assets` (WebP, lazy) in plaats van `public/` (Balkonton 2 MB → 0,9 MB).
+- Datums in het Nederlands (`7 okt 2023`).
 - Bloem in de footer zat niet meer midden op de rand (Tailwind 4 `translate` + transform uit het scrollscript). Script zet nu alleen `rotate` en respecteert `prefers-reduced-motion`.
 - `src/data/siteData.json` bevatte nog starterdata ("My Astro Blog"): naam, beschrijving en OG-alt nu Tuinierhier.
+
+### Verwijderd
+- Starter-inhoud: voorbeeldposts (Markdown Style Guide, Sample Blog Post, Using MDX, …), `/blog/`-pagina met Astro-header, placeholderbeelden, `navData.js`.
 
 ### Beveiliging
 - Astro 5 → 7 en Tailwind 3 → 4: `npm audit` van 13 naar **0** meldingen.

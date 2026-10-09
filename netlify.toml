@@ -5,3 +5,9 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+# Oude starter-URL's (/blog/…) naar /nieuws/.
+[[redirects]]
+  from = "/blog/*"
+  to = "/nieuws/:splat"
+  status = 301

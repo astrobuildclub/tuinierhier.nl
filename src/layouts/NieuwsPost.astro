@@ -6,16 +6,16 @@ import MainLayout from "../layouts/MainLayout.astro";
 import FormattedDate from "../components/common/FormattedDate.astro";
 import Tag from "../components/common/Tag.astro";
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"nieuws">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, links } = Astro.props;
 ---
 
 <MainLayout {title} {description} image={heroImage.src.src}>
   <article class="post">
     <div class="date">
       <div class="date-header">
-        <a href="/#news" class="back-to-news">
+        <a href="/nieuws" class="back-to-news" aria-label="Terug naar alle nieuws">
           <Tag variant="news">←</Tag>
         </a>
         <Tag variant="news">
@@ -25,12 +25,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       {
         updatedDate && (
           <div class="last-updated-on">
-            Last updated on <FormattedDate date={updatedDate} />
+            Bijgewerkt op <FormattedDate date={updatedDate} />
           </div>
         )
       }
 
       <h1 class="title">{title}</h1>
+      <p class="lead">{description}</p>
     </div>
     <div class="hero-image">
       <Image
@@ -46,7 +47,21 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     </div>
     <slot />
 
-    <a href="/#news" class="back-to-news">
+    {
+      links.length > 0 && (
+        <ul class="links">
+          {links.map(({ label, url }) => (
+            <li>
+              <a href={url} rel="noopener">
+                → {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <a href="/nieuws" class="back-to-news">
       <Tag variant="news">← Meer nieuws</Tag>
     </a>
   </article>
@@ -82,6 +97,27 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     font-size: var(--step-5);
     font-weight: 700;
     line-height: 1.2;
+  }
+
+  .lead {
+    margin: var(--space-xs) 0 0;
+    font-size: var(--step-0);
+    font-weight: 600;
+    line-height: 1.4;
+    max-width: 45ch;
+  }
+
+  .links {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-m) 0 var(--space-l);
+    display: grid;
+    gap: var(--space-3xs);
+  }
+
+  .links a {
+    font-weight: 700;
+    color: inherit;
   }
 
   /* Scoped markdown content styling */

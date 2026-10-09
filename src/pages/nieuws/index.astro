@@ -1,0 +1,33 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Card from "../../components/common/Card.astro";
+import FormattedDate from "../../components/common/FormattedDate.astro";
+import { getNieuws } from "../../lib/nieuws";
+
+const posts = await getNieuws();
+---
+
+<MainLayout
+  title="Nieuws • Tuinierhier"
+  description="Nieuws van Tuinierhier: tuinfluencing, social content, televisie, exposities en samenwerkingen van Eefje Peddemors."
+>
+  <section class="bg-clr-yellow text-black grid gap-(--space-l) p-(--space-m-xl) min-h-screen">
+    <h1 class="font-heading text-(length:--step-5) leading-none">Nieuws</h1>
+    <div class="grid auto-rows-min gap-(--space-s-m) items-start justify-items-start md:grid-cols-2 lg:grid-cols-3">
+      {
+        posts.map((post) => (
+          <Card
+            href={`/nieuws/${post.id}`}
+            imageSrc={post.data.heroImage.src}
+            imageAlt={post.data.heroImage.alt}
+            title={post.data.title}
+            description={post.data.description}
+            headingLevel="h2"
+          >
+            <FormattedDate slot="meta" date={post.data.pubDate} />
+          </Card>
+        ))
+      }
+    </div>
+  </section>
+</MainLayout>

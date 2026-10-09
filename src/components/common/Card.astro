@@ -8,12 +8,14 @@ export interface Props {
   description: string;
   imageSrc: any; // Astro Image object
   imageAlt: string;
+  /** Kopniveau van de titel: h2 op /nieuws/, h4 op de home (onder Diensten). */
+  headingLevel?: "h2" | "h3" | "h4";
 }
 
-const { href, title, description, imageSrc, imageAlt } = Astro.props;
+const { href, title, description, imageSrc, imageAlt, headingLevel: Heading = "h4", ...rest } = Astro.props;
 ---
 
-<article class="card relative grid gap-(--space-3xs) justify-items-start">
+<article class="card relative grid gap-(--space-3xs) justify-items-start" {...rest}>
   <figure class="w-full">
     <Image
       src={imageSrc}
@@ -33,7 +35,7 @@ const { href, title, description, imageSrc, imageAlt } = Astro.props;
       </Tag>
     )
   }
-  <h4
+  <Heading
     class="text-(length:--step-1) font-bold leading-[120%] mt-(--space-1xs) mb-0"
   >
     <a
@@ -42,7 +44,7 @@ const { href, title, description, imageSrc, imageAlt } = Astro.props;
     >
       {title}
     </a>
-  </h4>
+  </Heading>
   <p class="font-semibold text-(length:--step--2) leading-relaxed mt-0">
     {description}
   </p>
