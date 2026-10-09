@@ -100,7 +100,16 @@ Achtergrond van de hero: gedimd, uitgezoomd bij scrollen, zonder geluid, in een 
 | Geluid | **geen audiospoor** | geen | |
 | Doel | MP4 ≤ 1,2 MB · WebM ≤ 0,9 MB | ≤ 0,8 MB | ≤ 120 kB |
 
-**Handbrake-presets:** importeer [`docs/video/handbrake-presets.json`](docs/video/handbrake-presets.json) (*Presets → Import from File*). Dan heb je een map "Tuinierhier website" met *Website desktop (MP4)*, *Website mobiel (MP4, 9:16)* en *Website desktop (WebM)*. Start altijd vanaf het origineel, niet vanaf de huidige transcode. Bij de mobiele preset staat de uitsnede op een 1920×1080-bron (links en rechts 656 px). Bij 4K is dat 1312 px, bij een staande bron 0. Controleer dat in het tabblad *Dimensions*.
+**Handbrake-presets:** importeer [`docs/video/handbrake-presets.json`](docs/video/handbrake-presets.json) (*Presets → Import from File*). Dan heb je een map "Tuinierhier website" met *Website desktop (MP4)*, *Website mobiel (MP4, 9:16)* en *Website desktop (WebM)*. Start altijd vanaf het origineel, niet vanaf de huidige transcode. Bij de mobiele preset hangt de uitsnede af van de bron. Zet hem in het tabblad *Dimensions* bij *Cropping: Custom*, links én rechts:
+
+| Bron | Links/rechts | Uitvoer |
+|---|---|---|
+| 1280×720 (huidige transcode, staat in de preset) | 437 | 406×720 |
+| 1920×1080 | 656 | 608×1080 |
+| 3840×2160 (4K) | 1312 | 720×1280 |
+| Staand (telefoon) | 0 | 720×1280 |
+
+Formule: breedte bij 9:16 = bronhoogte × 9/16, afgerond op een even getal. Uitsnede per kant = (bronbreedte − die breedte) / 2. Hoe hoger de bron, hoe scherper de mobiele versie: 406×720 is krap, maar acceptabel voor een gedimde achtergrond.
 
 **Handmatig in Handbrake** (zelfde instellingen):
 
