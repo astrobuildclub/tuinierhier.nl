@@ -22,6 +22,7 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 - `apple-touch-icon` (`/assets/webclip.png`).
 
 ### Gewijzigd
+- `README.md`: notitie "webshop later als maatwerk" weg; is geen afspraak met de klant.
 - Beelden krijgen een `srcset` (`image.layout: 'constrained'`), ook in Markdown. Tailwind-tokens verwijzen naar de SCSS-variabelen (`@theme inline`).
 - Tailwind 4 via `@tailwindcss/vite`; config als `@theme` in `src/styles/tailwind.css`; klassen gemigreerd met `@tailwindcss/upgrade`. SCSS-basis in `@layer base` zodat de cascade gelijk blijft. Verwijderd: `@astrojs/tailwind`, `@tailwindcss/typography` (ongebruikt), autoprefixer, `postcss.config.mjs`.
 - Astro 6: content collection naar de Content Layer API (`src/content.config.ts`, glob-loader), `post.id` en `render(post)`. URL's ongewijzigd.
