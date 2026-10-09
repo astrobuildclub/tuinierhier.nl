@@ -3,8 +3,9 @@ import ServicesAnimation from "../animations/ServicesAnimation.astro";
 ---
 
 <section
-  class="bg-(--clr-pinky) p-(--space-m-2xl) lg:sticky lg:top-0 relative z-30"
+  class="bg-(--clr-pinky) p-(--space-m-2xl) lg:sticky lg:top-[var(--sticky-top,0px)] relative z-30"
   id="services-section"
+  data-sticky-fit
 >
   <h2 class="text-(length:--step--1) font-semibold">Diensten</h2>
   <div
