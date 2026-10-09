@@ -7,6 +7,8 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: 'https://tuinierhier.nl',
   output: 'static',
+  // Astro 7 gebruikt standaard 'jsx': witruimte tussen elementen verdwijnt ("Home Blog" → "HomeBlog").
+  compressHTML: true,
   build: {
     inlineStylesheets: 'auto',
     assets: '_astro',
