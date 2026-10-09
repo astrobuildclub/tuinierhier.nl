@@ -248,6 +248,8 @@ export function createTextSplit(
 
   // Get original text
   const text = element.textContent || '';
+  // Losse <span>s per letter of woord: schermlezers krijgen het hele woord via aria-label.
+  element.setAttribute('aria-label', text.trim());
   
   if (splitBy === 'letters') {
     // Split text into individual characters
@@ -256,9 +258,9 @@ export function createTextSplit(
     element.innerHTML = characters
       .map((char) => {
         if (char === ' ') {
-          return '<span style="display: inline-block; width: 0.25em;">&nbsp;</span>';
+          return '<span aria-hidden="true" style="display: inline-block; width: 0.25em;">&nbsp;</span>';
         }
-        return `<span style="display: inline-block; white-space: nowrap;">${char}</span>`;
+        return `<span aria-hidden="true" style="display: inline-block; white-space: nowrap;">${char}</span>`;
       })
       .join('');
 
@@ -284,7 +286,7 @@ export function createTextSplit(
     const words = text.split(' ');
     
     element.innerHTML = words
-      .map((word) => `<span style="display: inline-block;">${word}</span>`)
+      .map((word) => `<span aria-hidden="true" style="display: inline-block;">${word}</span>`)
       .join(' ');
 
     const wordSpans = element.querySelectorAll('span');
