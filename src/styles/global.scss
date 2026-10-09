@@ -1,19 +1,20 @@
 // global.scss - Hoofdbestand dat alle styles importeert
-// Minimale setup met alleen essentiële imports
+// Tailwind 4 zet alles in native cascade layers; CSS buiten een layer wint dan altijd van utilities.
+// Daarom staat onze basis in `@layer base`, vóór Preflight, net als in Tailwind 3. Tailwind zelf: tailwind.css.
+@use 'sass:meta';
 
-// 1. Reset en basis
-@use 'reset';
+@layer theme, base, components, utilities;
 
-// 2. Variabelen
-@use 'variables';
+@layer base {
+    // 1. Reset en basis
+    @include meta.load-css('reset');
 
-// 3. Utopia fluid typography en spacing
-@use 'utopia';
+    // 2. Variabelen
+    @include meta.load-css('variables');
 
-// 4. Typography basis styles
-@use 'typography';
+    // 3. Utopia fluid typography en spacing
+    @include meta.load-css('utopia');
 
-// 5. Tailwind CSS directives
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+    // 4. Typography basis styles
+    @include meta.load-css('typography');
+}

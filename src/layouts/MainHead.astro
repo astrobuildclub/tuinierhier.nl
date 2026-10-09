@@ -38,7 +38,7 @@ const { title, description, image, frontmatter, robots } = Astro.props;
     /* Critical above-the-fold styles */
     body {
       margin: 0;
-      font-family: "Manrope", sans-serif;
+      font-family: var(--font-body, "Manrope", sans-serif);
     }
     .min-h-\[70vh\] {
       min-height: 70vh;

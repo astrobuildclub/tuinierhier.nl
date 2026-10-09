@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,6 +12,7 @@ export default defineConfig({
     assets: '_astro',
   },
   vite: {
+    plugins: [tailwindcss()],
     build: {
       cssCodeSplit: false,
       rollupOptions: {
@@ -24,5 +25,5 @@ export default defineConfig({
       }
     }
   },
-  integrations: [mdx(), sitemap(), tailwind()]
+  integrations: [mdx(), sitemap()]
 });

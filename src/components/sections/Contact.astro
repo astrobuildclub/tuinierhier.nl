@@ -7,19 +7,19 @@ import contactImageSrc from "../../assets/img-contact.jpg";
 ---
 
 <section
-  class="bg-[var(--clr-green)] px-[var(--space-m-xl)] py-[var(--space-xl-2xl)] flex flex-col gap-[var(--space-l)] relative z-50"
+  class="bg-(--clr-green) px-(--space-m-xl) py-(--space-xl-2xl) flex flex-col gap-(--space-l) relative z-50"
 >
-  <p class="text-[length:var(--step--2)] font-bold text-black m-0">
+  <p class="text-(length:--step--2) font-bold text-black m-0">
     samenwerken?
   </p>
 
-  <div class="flex flex-col gap-[var(--space-l)] lg:flex-row lg:items-start">
+  <div class="flex flex-col gap-(--space-l) lg:flex-row lg:items-start">
     <div class="lg:w-[60%] shrink-0">
-      <div class="rotate-[-3.5deg] rounded-[2rem] overflow-hidden shadow-lg">
+      <div class="rotate-[-3.5deg] rounded-4xl overflow-hidden shadow-lg">
         <Image
           src={contactImageSrc}
           alt="Eefje Peddemors – Tuinierhier"
-          class="w-full h-auto object-cover aspect-[4/3] block"
+          class="w-full h-auto object-cover aspect-4/3 block"
           width={1200}
           height={900}
           format="webp"
@@ -30,23 +30,23 @@ import contactImageSrc from "../../assets/img-contact.jpg";
       </div>
     </div>
 
-    <div class="flex flex-col gap-[var(--space-s)] lg:w-[40%]">
+    <div class="flex flex-col gap-(--space-s) lg:w-[40%]">
       <h2
-        class="font-heading font-extrabold text-[length:var(--step-1)] leading-tight text-black m-0"
+        class="font-heading font-extrabold text-(length:--step-1) leading-tight text-black m-0"
       >
         Contact
       </h2>
 
-      <div class="flex flex-col gap-[var(--space-xs)]">
-        <p class="text-[length:var(--step--2)] font-bold leading-[1.33] m-0">
+      <div class="flex flex-col gap-(--space-xs)">
+        <p class="text-(length:--step--2) font-bold leading-[1.33] m-0">
           Heb je een vraag of wil je samenwerken? Ik hoor het graag!
         </p>
 
-        <ul class="flex flex-col gap-[0.25rem] list-none p-0 m-0">
+        <ul class="flex flex-col gap-1 list-none p-0 m-0">
           <li>
             <a
               href="https://instagram.com/tuinierhier"
-              class="text-[length:var(--step--2)] font-bold text-black leading-[1.25] hover:underline"
+              class="text-(length:--step--2) font-bold text-black leading-tight hover:underline"
             >
               → instagram.com/tuinierhier
             </a>
@@ -54,7 +54,7 @@ import contactImageSrc from "../../assets/img-contact.jpg";
           <li>
             <a
               href="https://linkedin.com/tuinierhier"
-              class="text-[length:var(--step--2)] font-bold text-black leading-[1.25] hover:underline"
+              class="text-(length:--step--2) font-bold text-black leading-tight hover:underline"
             >
               → linkedin.com/tuinierhier
             </a>
@@ -62,7 +62,7 @@ import contactImageSrc from "../../assets/img-contact.jpg";
           <li>
             <a
               href="mailto:hoi@tuinierhier.nl"
-              class="text-[length:var(--step--2)] font-bold text-black leading-[1.25] hover:underline"
+              class="text-(length:--step--2) font-bold text-black leading-tight hover:underline"
             >
               → hoi@tuinierhier.nl
             </a>

@@ -13,21 +13,21 @@ const aboutContent = {
 ---
 
 <section
-  class="bg-[var(--clr-blue)] relative z-30 lg:sticky lg:top-0 p-[var(--space-m-xl)] py-[var(--space-m-2xl)]"
+  class="bg-(--clr-blue) relative z-30 lg:sticky lg:top-0 p-(--space-m-xl) py-(--space-m-2xl)"
   id="about-section"
 >
-  <div class="grid gap-[var(--space-s-m)] lg:grid-cols-2">
+  <div class="grid gap-(--space-s-m) lg:grid-cols-2">
     <div class="lg:col-span-1">
-      <p class="text-[length:var(--step-1)] font-bold leading-[133%] m-0">
+      <p class="text-(length:--step-1) font-bold leading-[133%] m-0">
         {aboutContent.intro}
       </p>
     </div>
 
-    <div class="lg:col-span-1 grid gap-[var(--step--2)]">
+    <div class="lg:col-span-1 grid gap-(--step--2)">
       {
         aboutContent.details.map((detail, index) => (
           <p
-            class={`text-[length:var(--step--2)] font-bold leading-[150%] m-0 ${
+            class={`text-(length:--step--2) font-bold leading-[150%] m-0 ${
               index === aboutContent.details.length - 1 ? "font-medium" : ""
             }`}
           >
