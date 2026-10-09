@@ -33,5 +33,6 @@ Lees eerst `README.md` voor context en `CHANGELOG.md` voor recente wijzigingen.
 - Hero-video: specs en Handbrake-instellingen in de README; bronnen in `Hero.astro` (`video.sources`).
 - Nieuw of gewijzigd bericht: werk ook `public/llms.txt` bij (met de hand, er is geen CMS).
 - Tailwind 4 staat in `src/styles/tailwind.css` (`@theme`, geen `tailwind.config`). De SCSS-basis staat in `@layer base` (`global.scss`): CSS buiten een layer wint in v4 altijd van utilities. Positie via `translate-*`-klassen niet combineren met `style.transform` in JS; gebruik `style.rotate`/`scale` (zie `FooterAnimation.astro`).
+- Gestapelde sticky secties: gebruik `data-sticky-fit` + `lg:sticky lg:top-[var(--sticky-top,0px)]` (zie `src/utils/stickyFit.ts`), niet `top-0`, zodat hoge secties eerst helemaal in beeld komen.
 - `compressHTML: true` in `astro.config.mjs` laten staan: de Astro 7-default `'jsx'` plakt woorden tussen elementen aan elkaar.
 - Domein altijd **zonder `www`**: `site` in `astro.config.mjs` is `https://tuinierhier.nl`. In Netlify is `tuinierhier.nl` het primaire domein en stuurt `www` door. (Webflow doet nu nog andersom, tot de overstap.)

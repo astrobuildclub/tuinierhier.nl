@@ -39,6 +39,7 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 - Berichten bevatten gekopieerde alinea's uit andere berichten en kapotte links (`https:/…`); opnieuw opgebouwd vanuit de live site. Tracking-parameters (`igshid`) uit Instagram-links.
 - Afbeeldingen in berichten via `src/assets` (WebP, lazy) in plaats van `public/` (Balkonton 2 MB → 0,9 MB).
 - Datums in het Nederlands (`7 okt 2023`).
+- Sticky secties (Over, Diensten) die hoger zijn dan het scherm scrollen eerst door tot de onderkant zichtbaar is en zetten zich dan pas vast (`src/utils/stickyFit.ts`, `data-sticky-fit`). Voorheen viel de onderkant van Diensten weg achter de volgende sectie.
 - Bloem in de footer zat niet meer midden op de rand (Tailwind 4 `translate` + transform uit het scrollscript). Script zet nu alleen `rotate` en respecteert `prefers-reduced-motion`.
 - `src/data/siteData.json` bevatte nog starterdata ("My Astro Blog"): naam, beschrijving en OG-alt nu Tuinierhier.
 

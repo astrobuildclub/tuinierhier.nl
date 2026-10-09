@@ -7,7 +7,8 @@ const rechts = await getTekst("intro-rechts");
 ---
 
 <section
-  class="bg-(--clr-blue) relative z-30 lg:sticky lg:top-0 p-(--space-m-xl) py-(--space-m-2xl)"
+  class="bg-(--clr-blue) relative z-30 lg:sticky lg:top-[var(--sticky-top,0px)] p-(--space-m-xl) py-(--space-m-2xl)"
+  data-sticky-fit
   id="about-section"
 >
   <div class="grid gap-(--space-s-m) lg:grid-cols-2">
