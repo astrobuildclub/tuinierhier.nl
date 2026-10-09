@@ -1,5 +1,5 @@
 [
-  { "id": "instagram", "label": "instagram.com/tuinierhier", "url": "https://instagram.com/tuinierhier" },
-  { "id": "linkedin", "label": "linkedin.com/eefjepeddemors", "url": "https://nl.linkedin.com/in/eefje-peddemors-294a9641" },
-  { "id": "email", "label": "eefje@tuinierhier.nl", "url": "mailto:eefje@tuinierhier.nl" }
+  { "id": "instagram", "label": "instagram.com/tuinierhier", "url": "https://instagram.com/tuinierhier", "volgorde": 1 },
+  { "id": "linkedin", "label": "linkedin.com/eefjepeddemors", "url": "https://nl.linkedin.com/in/eefje-peddemors-294a9641", "volgorde": 2 },
+  { "id": "email", "label": "eefje@tuinierhier.nl", "url": "mailto:eefje@tuinierhier.nl", "volgorde": 3 }
 ]

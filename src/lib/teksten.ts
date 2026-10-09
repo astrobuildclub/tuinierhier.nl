@@ -18,7 +18,7 @@ export async function getDiensten() {
   );
 }
 
-/** Contactlinks uit src/content/links.json, in de volgorde van het bestand. */
+/** Contactlinks uit src/content/links.json, op `volgorde`. */
 export async function getLinks() {
-  return (await getCollection("links")).map(({ data }) => data);
+  return (await getCollection("links")).map(({ data }) => data).sort((a, b) => a.volgorde - b.volgorde);
 }

@@ -35,12 +35,13 @@ const teksten = defineCollection({
   }),
 });
 
-// Contactlinks, één bron voor de zijbalk en de contactsectie. Volgorde = volgorde in het bestand.
+// Contactlinks, één bron voor de zijbalk en de contactsectie, gesorteerd op `volgorde`.
 const links = defineCollection({
   loader: file("src/content/links.json"),
   schema: z.object({
     label: z.string(),
     url: z.string(),
+    volgorde: z.number(),
   }),
 });
 

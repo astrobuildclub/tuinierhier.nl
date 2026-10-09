@@ -45,18 +45,57 @@ const today = new Date();
       </div>
     </div>
   </div>
-  <div
+  <a
+    href="/"
+    aria-label="Tuinierhier, naar de homepage"
     class="bloem absolute top-0 left-1/2 w-12 -translate-x-1/2 -translate-y-1/2 lg:top-1/2 lg:left-auto lg:right-0 lg:w-16 lg:translate-x-1/2 lg:-translate-y-1/2 lg:z-999"
   >
-    <img
-      src="/assets/tuinierhier-bloem.svg"
-      alt="Tuinierhier bloem decoratie"
-    />
-  </div>
+    <img src="/assets/tuinierhier-bloem.svg" alt="" width="64" height="64" />
+  </a>
 </footer>
 <FooterAnimation />
 
 <style>
+  /* Bloem = link naar home met een elastische bounce.
+     Drie losse transform-properties die elkaar niet raken:
+     - translate (Tailwind-klassen op .bloem): midden op de rand
+     - rotate (FooterAnimation, op .bloem): draait mee met scrollen
+     - scale (hier, op de img): de bounce
+     De linear()-curve schiet door tot ~1,3, zakt terug onder 1,2 en wiebelt uit: een veer. */
+  .bloem {
+    display: block;
+    border-radius: 50%;
+  }
+  .bloem img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: scale 750ms
+      linear(0, 0.42 7%, 0.82 14%, 1.1 21%, 1.24 28%, 1.27 33%, 1.22 40%, 1.1 50%, 1 59%, 0.96 66%, 0.97 75%, 1 88%, 1);
+  }
+  .bloem:hover img,
+  .bloem:focus-visible img {
+    scale: 1.2;
+  }
+  .bloem:active img {
+    scale: 0.9;
+    transition-duration: 120ms;
+    transition-timing-function: ease-out;
+  }
+  .bloem:focus-visible {
+    outline: 2px solid var(--clr-black);
+    outline-offset: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bloem img {
+      transition: scale 150ms ease-out;
+    }
+    .bloem:hover img,
+    .bloem:focus-visible img {
+      scale: 1.08;
+    }
+  }
+
   /* Footer Layout */
   .footer-sidebar {
     background: white;
