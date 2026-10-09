@@ -33,7 +33,10 @@ const today = new Date();
     <div
       class="flex justify-between items-center mt-(--space-xs) text-(length:--step--2) lg:text-[10px] font-bold text-gray-500 lg:gap-1"
     >
-      <div>&copy; {today.getFullYear()} {NAME}</div>
+      <div>
+        &copy; {today.getFullYear()} {NAME} ·
+        <a href="/privacy" class="inline-flex items-center min-h-6 underline underline-offset-2">privacy</a>
+      </div>
       <div class="flex justify-end items-center gap-1">
         design + dev: <a
           href="https://allthis.digital"

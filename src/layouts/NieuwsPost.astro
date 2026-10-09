@@ -5,6 +5,7 @@ import { Image } from "astro:assets";
 import MainLayout from "../layouts/MainLayout.astro";
 import FormattedDate from "../components/common/FormattedDate.astro";
 import Tag from "../components/common/Tag.astro";
+import "../styles/prose.scss";
 
 type Props = CollectionEntry<"nieuws">["data"];
 
@@ -68,13 +69,6 @@ const { title, description, pubDate, updatedDate, heroImage, links } = Astro.pro
 </MainLayout>
 
 <style>
-  article {
-    padding: var(--space-s-2xl);
-    max-width: 960px;
-    margin: 0 auto;
-    position: relative;
-  }
-
   .date-header {
     display: flex;
     align-items: center;
@@ -82,22 +76,6 @@ const { title, description, pubDate, updatedDate, heroImage, links } = Astro.pro
     margin-bottom: var(--space-xs);
   }
 
-
-  .title {
-    margin: 1rem 0 0 0;
-    padding: 0;
-    font-size: var(--step-5);
-    font-weight: 700;
-    line-height: 1.2;
-  }
-
-  .lead {
-    margin: var(--space-xs) 0 0;
-    font-size: var(--step-0);
-    font-weight: 600;
-    line-height: 1.4;
-    max-width: 45ch;
-  }
 
   .links {
     list-style: none;
@@ -113,123 +91,6 @@ const { title, description, pubDate, updatedDate, heroImage, links } = Astro.pro
     min-block-size: 24px;
     font-weight: 700;
     color: inherit;
-  }
-
-  /* Scoped markdown content styling */
-  :global(.post p) {
-    font-size: var(--step--1);
-    line-height: 150%;
-    margin: var(--space-m) 0;
-  }
-
-  /* Remove top margin from p after headings */
-  :global(.post h1 + p),
-  :global(.post h2 + p),
-  :global(.post h3 + p),
-  :global(.post h4 + p),
-  :global(.post h5 + p),
-  :global(.post h6 + p) {
-    margin-top: 0;
-  }
-
-  :global(.post h1),
-  :global(.post h2),
-  :global(.post h3),
-  :global(.post h4),
-  :global(.post h5),
-  :global(.post h6) {
-    font-size: var(--step-2);
-    margin-top: var(--space-m);
-    margin-bottom: var(--space-3xs);
-    font-weight: 700;
-  }
-
-  :global(.post h1) {
-    font-size: var(--step-3);
-  }
-
-  :global(.post h2) {
-    font-size: var(--step-2);
-  }
-
-  :global(.post h3) {
-    font-size: var(--step-1);
-  }
-
-  :global(.post blockquote) {
-    font-size: var(--step--1);
-    line-height: 150%;
-    margin: var(--space-m) 0;
-    padding-left: var(--space-m);
-    border-left: 3px solid var(--clr-green);
-    font-style: italic;
-  }
-
-  :global(.post ul),
-  :global(.post ol) {
-    margin: var(--space-m) 0;
-    padding-left: var(--space-l);
-  }
-
-  :global(.post li) {
-    margin: var(--space-xs) 0;
-    font-size: var(--step--1);
-    line-height: 150%;
-  }
-
-  /* Nested list spacing adjustments */
-  :global(.post li > ul),
-  :global(.post li > ol) {
-    margin-top: var(--space-xs);
-    margin-bottom: 0;
-    padding-left: var(--space-m);
-  }
-
-  :global(.post code) {
-    background: var(--clr-yellow);
-    padding: 0.125rem 0.25rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.875em;
-  }
-
-  :global(.post pre) {
-    background: var(--clr-yellow);
-    padding: var(--space-m);
-    border-radius: var(--radius);
-    overflow-x: auto;
-    margin: var(--space-m) 0;
-  }
-
-  :global(.post pre code) {
-    background: none;
-    padding: 0;
-  }
-
-  /* --clr-brand op geel: 8,9:1 (WCAG AA). --clr-green haalde maar 3,5:1. */
-  :global(.post a) {
-    color: var(--clr-brand);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.15em;
-  }
-
-  :global(.post a:hover) {
-    color: var(--clr-navy);
-    text-decoration-thickness: 2px;
-  }
-
-  :global(.post img) {
-    max-width: 100%;
-    height: auto;
-    border-radius: var(--radius);
-    margin: var(--space-m) 0;
-  }
-
-  :global(.post hr) {
-    border: none;
-    height: 1px;
-    background: var(--clr-green);
-    margin: var(--space-l) 0;
   }
 
   .hero-image {

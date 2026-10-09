@@ -10,6 +10,7 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 ## [Unreleased]
 
 ### Toegevoegd
+- `/privacy`: privacyverklaring (concept) als Markdown in `src/content/teksten/privacy.md`, opgemaakt als een nieuwsbericht; link in de footer. Tekststijlen van `NieuwsPost` naar `src/styles/prose.scss` (ongewijzigd), zodat beide pagina's ze delen.
 - Alle vaste teksten als Markdown in `src/content/teksten/` (zijbalk, intro, diensten, contact); contactlinks in `src/content/links.json` voor zijbalk én contact.
 - Hero-video: pauzeknop (WCAG 2.2.2); start niet bij `prefers-reduced-motion`; pauzeert uit beeld. Specs en Handbrake-instellingen in de README.
 - Skip-link "Naar de inhoud"; bloem linkt naar home met een elastische bounce; "← Home" op `/nieuws`.
