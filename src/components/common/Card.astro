@@ -8,12 +8,14 @@ export interface Props {
   description: string;
   imageSrc: any; // Astro Image object
   imageAlt: string;
+  /** Kopniveau van de titel: h2 op /nieuws/, h4 op de home (onder Diensten). */
+  headingLevel?: "h2" | "h3" | "h4";
 }
 
-const { href, title, description, imageSrc, imageAlt } = Astro.props;
+const { href, title, description, imageSrc, imageAlt, headingLevel: Heading = "h4", ...rest } = Astro.props;
 ---
 
-<article class="card relative grid gap-[var(--space-3xs)] justify-items-start">
+<article class="card relative grid gap-(--space-3xs) justify-items-start" {...rest}>
   <figure class="w-full">
     <Image
       src={imageSrc}
@@ -23,27 +25,27 @@ const { href, title, description, imageSrc, imageAlt } = Astro.props;
       width={400}
       height={300}
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      class="block w-full h-auto rounded-xl overflow-hidden mb-[var(--space-xs)]"
+      class="block w-full h-auto rounded-xl overflow-hidden mb-(--space-xs)"
     />
   </figure>
   {
     Astro.slots.has("meta") && (
-      <Tag variant="news" class="mb-0 text-[length:var(--step--2)]">
+      <Tag variant="news" class="mb-0 text-(length:--step--2)">
         <slot name="meta" />
       </Tag>
     )
   }
-  <h4
-    class="text-[length:var(--step-1)] font-bold leading-[120%] mt-[var(--space-1xs)] mb-0"
+  <Heading
+    class="text-(length:--step-1) font-bold leading-[120%] mt-(--space-1xs) mb-0"
   >
     <a
       href={href}
-      class="card__link inline-block no-underline text-inherit focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--clr-yellow)]"
+      class="card__link inline-block no-underline text-inherit focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--clr-yellow)"
     >
       {title}
     </a>
-  </h4>
-  <p class="font-semibold text-[length:var(--step--2)] leading-relaxed mt-0">
+  </Heading>
+  <p class="font-semibold text-(length:--step--2) leading-relaxed mt-0">
     {description}
   </p>
 </article>

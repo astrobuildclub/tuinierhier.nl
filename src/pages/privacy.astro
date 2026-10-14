@@ -1,0 +1,48 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import FormattedDate from "../components/common/FormattedDate.astro";
+import Tag from "../components/common/Tag.astro";
+import { getTekst } from "../lib/teksten";
+import "../styles/prose.scss";
+
+// Tekst: src/content/teksten/privacy.md. Opmaak gelijk aan een nieuwsbericht (prose.scss).
+const { titel, intro, bijgewerkt, Content } = await getTekst("privacy");
+---
+
+<MainLayout title={`${titel} • Tuinierhier`} description={intro}>
+  <article class="post">
+    <div class="meta">
+      <a href="/" class="terug" aria-label="Terug naar de homepage">
+        <Tag variant="news">←</Tag>
+      </a>
+      {
+        bijgewerkt && (
+          <Tag variant="news">
+            Bijgewerkt <FormattedDate date={bijgewerkt} />
+          </Tag>
+        )
+      }
+    </div>
+    <h1 class="title">{titel}</h1>
+    {intro && <p class="lead">{intro}</p>}
+    <Content />
+  </article>
+</MainLayout>
+
+<style>
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin-bottom: var(--space-xs);
+  }
+
+  /* Klikdoel minimaal 24×24 (WCAG 2.5.8). */
+  .terug {
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: 24px;
+    min-block-size: 24px;
+    text-decoration: none;
+  }
+</style>

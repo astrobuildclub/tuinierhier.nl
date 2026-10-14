@@ -1,0 +1,129 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+import MainLayout from "../layouts/MainLayout.astro";
+import FormattedDate from "../components/common/FormattedDate.astro";
+import Tag from "../components/common/Tag.astro";
+import "../styles/prose.scss";
+
+type Props = CollectionEntry<"nieuws">["data"];
+
+const { title, description, pubDate, updatedDate, heroImage, links } = Astro.props;
+---
+
+<MainLayout {title} {description} image={heroImage.src.src}>
+  <article class="post">
+    <div class="date">
+      <div class="date-header">
+        <a href="/nieuws" class="back-to-news" aria-label="Terug naar alle nieuws">
+          <Tag variant="news">←</Tag>
+        </a>
+        <Tag variant="news">
+          <FormattedDate date={pubDate} />
+        </Tag>
+      </div>
+      {
+        updatedDate && (
+          <div class="last-updated-on">
+            Bijgewerkt op <FormattedDate date={updatedDate} />
+          </div>
+        )
+      }
+
+      <h1 class="title">{title}</h1>
+      <p class="lead">{description}</p>
+    </div>
+    <div class="hero-image">
+      <Image
+        src={heroImage.src}
+        alt={heroImage.alt}
+        width={1600}
+        height={900}
+        format="webp"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+        loading="eager"
+        quality={85}
+      />
+    </div>
+    <slot />
+
+    {
+      links.length > 0 && (
+        <ul class="links">
+          {links.map(({ label, url }) => (
+            <li>
+              <a href={url} rel="noopener">
+                → {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <a href="/nieuws" class="back-to-news">
+      <Tag variant="news">← Meer nieuws</Tag>
+    </a>
+  </article>
+</MainLayout>
+
+<style>
+  .date-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin-bottom: var(--space-xs);
+  }
+
+
+  .links {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-m) 0 var(--space-l);
+    display: grid;
+    gap: var(--space-3xs);
+  }
+
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 24px;
+    font-weight: 700;
+    color: inherit;
+  }
+
+  .hero-image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Responsive hero image */
+  @media (max-width: 768px) {
+    .hero-image {
+      margin: var(--space-m) 0;
+      border-radius: var(--radius);
+    }
+  }
+
+  /* Klikdoel minimaal 24×24 (WCAG 2.5.8). */
+  .back-to-news {
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: 24px;
+    min-block-size: 24px;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .back-to-news:hover {
+    transform: translateX(-2px);
+  }
+</style>

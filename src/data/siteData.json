@@ -1,8 +1,8 @@
 {
-  "title": "My Astro Blog",
-  "description": "My musings about the Astro framework",
+  "title": "Tuinierhier",
+  "description": "Tuinfluencer, plantlover, kweekbeest, tuintijger, gardenista.",
   "image": {
     "src": "/ogimage.png",
-    "alt": "My Astro Blog"
+    "alt": "Tuinierhier • Eefje Peddemors"
   }
 }

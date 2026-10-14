@@ -8,6 +8,8 @@ const { title, description, image, frontmatter, robots } = Astro.props;
 <head>
   <meta charset="utf-8" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/assets/webclip.png" />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="generator" content={Astro.generator} />
   <title>{title}</title>
@@ -17,18 +19,9 @@ const { title, description, image, frontmatter, robots } = Astro.props;
 
   <Seo {title} {description} url={Astro.url} {image} {frontmatter} {robots} />
 
-  <!-- Performance optimizations -->
-  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-  <link rel="dns-prefetch" href="//use.typekit.net" />
-
-  <!-- Typography with preload -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;800&display=swap"
-    rel="stylesheet"
-  />
+  <!-- Fonts: Manrope zelf gehost (MainLayout, @fontsource). Typekit (new-spirit, anchor-web)
+       kan niet zelf gehost worden (licentie Adobe Fonts); daarom alleen die extern. -->
+  <link rel="preconnect" href="https://use.typekit.net" crossorigin />
   <link rel="stylesheet" href="https://use.typekit.net/cjb2kfe.css" />
 
   <!-- Critical CSS inline -->
@@ -36,7 +29,7 @@ const { title, description, image, frontmatter, robots } = Astro.props;
     /* Critical above-the-fold styles */
     body {
       margin: 0;
-      font-family: "Manrope", sans-serif;
+      font-family: var(--font-body, "Manrope", sans-serif);
     }
     .min-h-\[70vh\] {
       min-height: 70vh;
