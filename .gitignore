@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # Claude Code
 .claude/
+
+# Lokale videobestanden die niet gebruikt worden (WebM werd groter dan de MP4, zie README → Hero-video)
+public/assets/bloemenhommel-desktop.webm

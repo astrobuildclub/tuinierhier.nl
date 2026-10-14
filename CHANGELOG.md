@@ -9,6 +9,8 @@ Eerdere wijzigingen (vóór oktober 2026) staan alleen in de git-geschiedenis.
 
 ## [Unreleased]
 
+## [2026-10-14]
+
 ### Toegevoegd
 - `/privacy`: privacyverklaring (concept) als Markdown in `src/content/teksten/privacy.md`, opgemaakt als een nieuwsbericht; link in de footer. Tekststijlen van `NieuwsPost` naar `src/styles/prose.scss` (ongewijzigd), zodat beide pagina's ze delen.
 - Alle vaste teksten als Markdown in `src/content/teksten/` (zijbalk, intro, diensten, contact); contactlinks in `src/content/links.json` voor zijbalk én contact.
