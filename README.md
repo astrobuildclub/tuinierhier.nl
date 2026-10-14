@@ -52,7 +52,7 @@ public/         robots.txt, llms.txt, favicon, fonts, video en beelden
 
 ## Content en CMS
 
-- Geen CMS. De homepage-teksten staan in de componenten in `src/components/sections/`.
+- Geen CMS. Alle vaste teksten staan als Markdown in `src/content/teksten/` (zie "Teksten bewerken" hieronder).
 - Nieuws: een Markdown-bestand per bericht in `src/content/nieuws/`. De bestandsnaam is de URL (`/nieuws/<slug>`). Frontmatter:
 
   ```yaml
@@ -68,7 +68,7 @@ public/         robots.txt, llms.txt, favicon, fonts, video en beelden
   ```
 
   Afbeeldingen in de tekst: `![alt](../../assets/blog/foto.jpg)`, dan maakt Astro er WebP in de juiste maten van. Een wijziging start een Netlify-build; werk ook `public/llms.txt` bij.
-- Home toont de nieuwste 3 berichten met "Meer nieuws" (per 3); `/nieuws` toont alles.
+- Home toont de nieuwste 3 berichten met "Laad meer" (per 3) en "Bekijk archief" eronder; `/nieuws` toont alles.
 - Sanity is niet nodig (zie Notion). `~/Code/_standards/SANITY.md` geldt hier niet.
 
 ### Teksten bewerken
